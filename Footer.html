@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Footer</title>
+    <style>
+      /* 기본 스타일 */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .footer {
+        background-color: #8d808044;
+      }
+
+      .upperFooter {
+        height: 120px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+      }
+
+      .imageLogo {
+        width: 60px;
+        height: 60px;
+        margin-right: 5px;
+      }
+
+      .textLogo {
+        background-color: none;
+        border-style: none;
+        color: #342222;
+        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+      }
+
+      .slogan {
+        font-size: 12px;
+        text-align: right;
+        margin-right: 20px;
+        margin-bottom: 10px;
+      }
+
+      .lowerFooter {
+        background-color: #1d1010;
+        height: 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .copyright {
+        color: #fff;
+        padding: 10px;
+        font-size: 12px;
+        text-align: left;
+      }
+      .socialFlatform {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: 20px;
+      }
+
+      .socialFlatform img {
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 푸터 영역 -->
+    <div class="footer">
+      <div class="upperFooter">
+        <div class="logo">
+          <img class="imageLogo" src="images/logo.png" alt="로고" />
+          <div class="textLogo">감자밭</div>
+        </div>
+      </div>
+      <div class="slogan">나만을 위한 영화 추천 플랫폼, 감자밭</div>
+      <div class="lowerFooter">
+        <div class="copyright">&copy; 2024 감자밭. All Rights Reserved.</div>
+        <div class="socialFlatform">
+          <img class="kakaotalk" src="images/kakaotalk.png" alt="카카오톡" />
+          <img class="instagram" src="images/instagram.png" alt="인스타그램" />
+          <img class="facebook" src="images/facebook.png" alt="페이스북" />
+          <img class="twitter" src="images/twitter.png" alt="트위터" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

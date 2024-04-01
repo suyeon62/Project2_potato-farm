@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HeaderBeforeLogin</title>
+    <style>
+      /* 기본 스타일 */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* 헤더 스타일 */
+      .headerBeforeLogin {
+        background-color: #fff;
+        padding: 5px 20px;
+        text-align: left;
+        border-color: #342222;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .imageLogo {
+        width: 60px;
+        height: 60px;
+        margin-right: 5px;
+      }
+
+      .textLogo {
+        background-color: white;
+        border-style: none;
+        color: #342222;
+        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+      }
+
+      .rightTopMenu {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+
+      .chatbot {
+        width: 45px;
+        height: 45px;
+        margin-right: 15px;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+      }
+
+      .userImage {
+        width: 45px;
+        height: 45px;
+      }
+
+      .userIdButton {
+        background-color: white;
+        border-style: none;
+        border-radius: 35px;
+        color: #342222;
+        padding: 2px 10px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 헤더 영역 -->
+    <div class="headerBeforeLogin">
+      <!--메인 페이지 호출-->
+      <a style="text-decoration: none" href="#">
+        <div class="logo">
+          <img class="imageLogo" src="images/logo.png" alt="로고" />
+          <div class="textLogo">감자밭</div>
+        </div>
+      </a>
+
+      <div class="rightTopMenu">
+        <!--챗봇 팝업-->
+        <!-- <a on click=""> -->
+        <img class="chatbot" src="images/chatbot.png" alt="챗봇" />
+        <!-- </a> -->
+
+        <!--로그인 페이지 호출-->
+        <a style="text-decoration: none" href="https://www.naver.com">
+          <div class="user">
+            <img
+              class="userImage"
+              src="images/userImage.png"
+              alt="유저이미지"
+            />
+            <button class="userIdButton">UserName</button>
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
