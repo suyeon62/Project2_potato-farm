@@ -1,4 +1,4 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Headers from "./components/Headers";
 import Footers from "./components/Footers";
 import Main from "./pages/MyPage/Main";
@@ -9,18 +9,18 @@ import NavigationBar from "./components/NavigationBar";
 function App() {
   return (
     <div className="App">
-      <Router>
+      
         <Headers className="header"></Headers>
         <Routes>
           <Route path="/" element={<NavigationBar />}>
-            <Route path="myPage" element={<Main />}>
-              <Route path="myPage/myReview" element={<MyReviews />} />
-              <Route path="myPage/myTickets" element={<MyTickets />} />
-            </Route>
+            <Route path="myPage" element={<Main />}/>
+            <Route path="myPage/myReview" element={<MyReviews />} />
+            <Route path="myPage/myTickets" element={<MyTickets />} />
           </Route>
         </Routes>
+        <Outlet />
         <Footers className="footer"></Footers>
-      </Router>
+      
     </div>
   );
 }
