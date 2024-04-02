@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import imageLogo from '../images/logo.png'
-import chatbotIcon from "../images/chatbot.png"
+import React, { useState } from "react";
+import styled from "styled-components";
+import imageLogo from "../images/logo.png";
+import chatbotIcon from "../images/chatbot.png";
 import userImage from "../images/userImage.png";
 
 const HeadersContainer = styled.div`
@@ -9,13 +9,13 @@ const HeadersContainer = styled.div`
   padding: 2px 20px;
   text-align: left;
   border-color: #1d1010;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
+  // border-bottom-style: solid;
+  // border-bottom-width: 2px;
   display: flex;
   align-items: center;
 
-  >a{
-    text-decoration:none;
+  > a {
+    text-decoration: none;
   }
 `;
 
@@ -95,15 +95,15 @@ const LogOutButton = styled.button`
 `;
 
 const Headers = () => {
-const[isLoggedIn, setIsLoggedIn]=useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-const handleLogin=()=>{
-  setIsLoggedIn(true);
-}
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
-const handleLogout = () => {
-  setIsLoggedIn(false);
-}
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
 
   return (
     <HeadersContainer>
@@ -121,10 +121,9 @@ const handleLogout = () => {
             <UserIdButton>UserName</UserIdButton>
             <LogOutButton onClick={handleLogout}>로그아웃</LogOutButton>
           </User>
-        ):(
+        ) : (
           <LogInButton onClick={handleLogin}>로그인</LogInButton>
         )}
-        
       </RightTopMenu>
     </HeadersContainer>
   );
