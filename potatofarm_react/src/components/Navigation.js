@@ -3,11 +3,11 @@ import styled, { keyframes } from "styled-components";
 
 const Navbar = styled.div`
   font-family: Arial;
-  overflow: hidden;
+  // overflow: hidden;
 `;
 
 const Dropdown = styled.div`
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
   //   overflow: visible;
 `;
@@ -44,63 +44,68 @@ const Dropbtn = styled.button`
   background-color: inherit;
   font: inherit;
   margin: 0;
+  cursor:pointer;
 `;
 
 const DropdownContent = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  display:flex;
   position: absolute;
-  top: 100%;
+  // top: 100%;
   background-color: #f9f9f9;
   width: 100%;
+  align-items: center;
+  // margin-right: 50px;
   left: 0;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  padding: 0px 48px; /*위아래, 양옆*/
+  // padding: 0px 48px; /*위아래, 양옆*/
 
   }
 `;
 
-const Row = styled.div`
-  //   &:after {
-  //     content: "";
-  //     display: table;
-  //     clear: both;
-  //   }
+// const Row = styled.div`
+//   //   &:after {
+//   //     content: "";
+//   //     display: table;
+//   //     clear: both;
+//   //   }
+// `;
+
+const LeftMenuContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  margin-left: 20px;
+`;
+
+const RightMenuContent = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 자동 마진을 이용해 오른쪽 정렬 */
+  margin-right: 20px;
 `;
 
 const Column = styled.div`
   //   float: left;
   width: 15%;
   padding: 5px;
-  height: 200px;
+  height: 100px;
+  padding: 14px 16px;
 `;
 
-const ColumnHeader = styled.h3`
-  color: black;
-`;
+// const ColumnHeader = styled.h3`
+//   color: black;
+// `;
 
 const ColumnContents = styled.a`
   color: black;
-  padding: 10px;
   text-decoration: none;
   display: block;
   text-align: left;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  margin: 10px
 `;
 
 const Navigation = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
-
-  const handleMenuToggle = (index) => {
-    if (activeMenu === index) {
-      setActiveMenu(null);
-    } else {
-      setActiveMenu(index);
-    }
-  };
 
   return (
     <>
@@ -108,53 +113,55 @@ const Navigation = () => {
         <Dropdown>
           <MenuBar>
             <LeftMenu>
-              <Dropbtn onClick={toggleDropdown}>movie</Dropbtn>
-              <Dropbtn onClick={toggleDropdown}>review</Dropbtn>
-              <Dropbtn onClick={toggleDropdown}>booking</Dropbtn>
-              <Dropbtn onClick={toggleDropdown}>box-office</Dropbtn>
+              <Dropbtn>movie</Dropbtn>
+              <Dropbtn>review</Dropbtn>
+              <Dropbtn>booking</Dropbtn>
+              <Dropbtn>box-office</Dropbtn>
             </LeftMenu>
             <RightMenu>
               <Dropbtn>My-page</Dropbtn>
             </RightMenu>
           </MenuBar>
 
-          <DropdownContent isOpen={isOpen}>
-            <Row>
+          <DropdownContent>
+              <LeftMenuContent>
               <Column>
-                <ColumnHeader>movie</ColumnHeader>
-                <ColumnContents>Link 1</ColumnContents>
-                <ColumnContents>Link 2</ColumnContents>
-                <ColumnContents>Link 3</ColumnContents>
+                {/* <ColumnHeader>movie</ColumnHeader> */}
+                <ColumnContents>Link1</ColumnContents>
+                <ColumnContents>Link2</ColumnContents>
+                <ColumnContents>Link3</ColumnContents>
               </Column>
 
               <Column>
-                <ColumnHeader>review</ColumnHeader>
-                <ColumnContents>Link 1</ColumnContents>
-                <ColumnContents>Link 2</ColumnContents>
-                <ColumnContents>Link 3</ColumnContents>
+                {/* <ColumnHeader>review</ColumnHeader> */}
+                <ColumnContents>Link1</ColumnContents>
+                <ColumnContents>Link2</ColumnContents>
+                <ColumnContents>Link3</ColumnContents>
               </Column>
 
               <Column>
-                <ColumnHeader>booking</ColumnHeader>
-                <ColumnContents>Link 1</ColumnContents>
-                <ColumnContents>Link 2</ColumnContents>
-                <ColumnContents>Link 3</ColumnContents>
+                {/* <ColumnHeader>booking</ColumnHeader> */}
+                <ColumnContents>Link1</ColumnContents>
+                <ColumnContents>Link2</ColumnContents>
+                <ColumnContents>Link3</ColumnContents>
               </Column>
 
               <Column>
-                <ColumnHeader>box-office</ColumnHeader>
-                <ColumnContents>Link 1</ColumnContents>
-                <ColumnContents>Link 2</ColumnContents>
-                <ColumnContents>Link 3</ColumnContents>
+                {/* <ColumnHeader>box_office</ColumnHeader> */}
+                <ColumnContents>Link1</ColumnContents>
+                <ColumnContents>Link2</ColumnContents>
+                <ColumnContents>Link3</ColumnContents>
               </Column>
+              </LeftMenuContent>
 
+              <RightMenuContent>
               <Column>
-                <ColumnHeader>My_page</ColumnHeader>
-                <ColumnContents>Link 1</ColumnContents>
-                <ColumnContents>Link 2</ColumnContents>
-                <ColumnContents>Link 3</ColumnContents>
+                {/* <ColumnHeader>My_page</ColumnHeader> */}
+                <ColumnContents>Link1</ColumnContents>
+                <ColumnContents>Link2</ColumnContents>
+                <ColumnContents>Link3</ColumnContents>
               </Column>
-            </Row>
+              </RightMenuContent>
           </DropdownContent>
         </Dropdown>
       </Navbar>
