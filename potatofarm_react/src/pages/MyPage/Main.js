@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import userImage from "../../images/userImage.png";
+import ticketImage from "../../images/ticketImage.png";
+import filmIcon from "../../images/filmIcon.png";
 import { Link } from "react-router-dom";
 
 //마이메뉴(상단)
@@ -10,6 +12,7 @@ const MyMenu = styled.div`
   height: 250px;
   margin: 20px auto;
   align-items: center;
+  min-width: 600px;
 `;
 
 const ProfileFrame = styled.div`
@@ -59,19 +62,27 @@ const ShortcutMenu = styled(Link)`
   background-color: #ffffffbb;
   border: solid;
   margin: 10px;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 // 예매내역(티켓)(하단)
 const BookingDetails = styled.div``;
 
 const BookingDetailsBarFrame = styled.div`
+  width: 70%;
+  min-width: 600px;
   display: flex;
   justify-content: center; /* 가로 방향 가운데 정렬 */
   align-items: center;
+  margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 가운데 정렬 */
+  margin-right: auto; /* 오른쪽 여백을 자동으로 설정하여 가운데 정렬 */
 `;
 
 const BookingDetailsTitle = styled.div`
-  width: 70%;
+  width: 100%;
   display: flex;
   align-items: flex-end;
   margin-top: 20px;
@@ -83,12 +94,18 @@ const BookingDetailsMenu = styled.div`
   font-weight: bold;
 `;
 
-const BookingDetailsButton = styled.div`
+const BookingDetailsButton = styled(Link)`
   font-size: 12px;
+  text-decoration: none;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const BookingDetailsFrame = styled.div`
   width: 70%;
+  min-width: 600px;
   margin: 10px auto;
   margin-bottom: 70px;
   align-items: center;
@@ -105,6 +122,7 @@ const BookingDetailsBar = styled.div`
 
 const BookingDetailsCol = styled.div`
   margin: 5px 0;
+  min-width: 600px;
 `;
 
 const BookingDetailsContents = styled.div`
@@ -112,7 +130,11 @@ const BookingDetailsContents = styled.div`
   grid-template-columns: 0.6fr 1.3fr 1.2fr;
   padding: 15px 5px;
 `;
-const Col = styled.div``;
+const Col = styled.div`
+  font-weight: bold;
+  color: #353535;
+  margin: 0 20px;
+`;
 
 const PosterLink = styled(Link)`
   display: flex;
@@ -128,24 +150,199 @@ const Poster = styled.img`
 `;
 
 const BookingInfo = styled.div`
-  height: 100%;
+  /* height: 100%; */
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   /* text-align: center; */
+  margin: 0 20px;
 `;
 
-const BookingTitle = styled.div`
+const BookingTitle = styled(Link)`
   font-size: 16px;
   font-weight: bold;
+  text-decoration: none;
 `;
 
 const BookingText = styled.div`
   font-size: 14px;
 `;
 
+const TicketButton = styled.button`
+  /* position: absolute; */
+  /* top: 10px; */
+  /* right: 10px; */
+  cursor: pointer;
+  width: 18%;
+  min-width: 80px;
+`;
+
+const PayInfo = styled.div`
+  /* height: 100%; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* text-align: center; */
+  margin: 0 20px;
+`;
+
+// 팝업 창 스타일
+const Popup = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 38%;
+  height: 35%;
+  min-width: 610px;
+  border: 1px solid #ccc;
+  padding: 32px 50px;
+  z-index: 999;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+// 팝업 닫기 버튼 스타일
+const CloseButton = styled.button`
+  position: absolute;
+  top: 38px;
+  right: 50px;
+  font-size: 11px;
+  font-weight: bold;
+  color: white;
+  background: black;
+  border-radius: 7px;
+`;
+
+const Ticket = styled.div`
+  /* border: solid black; */
+  width: 90%;
+  height: 70%;
+  position: relative;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: solid black; */
+  /* border-radius: 30px; */
+  display: flex;
+`;
+
+const Ticketleft = styled.div`
+  width: 70%;
+  height: 100%;
+  color: white;
+  background: linear-gradient(
+    to right,
+    #070b0e,
+    black,
+    #252424,
+    #626161,
+    #8a8888
+  );
+  /* border: solid #060a0d; */
+  border-radius: 30px 0 0 30px;
+`;
+
+const TicketName = styled.div`
+  text-align: center;
+  text-shadow: 5px white;
+  font-size: 50px;
+  color: #ffffffe8;
+  margin: 9px 20px 5px 20px;
+`;
+
+const MovieTitle = styled.div`
+  margin: 2px 30px;
+  display: flex;
+`;
+
+const FilmIcon = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+`;
+
+const MovieName = styled.div`
+  font-size: 22px;
+`;
+
+const ShowTimeDate = styled.div`
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 0px 30px;
+`;
+
+const ShowTime = styled.div`
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 0px 30px;
+`;
+
+const CinemaId = styled.div`
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 0px 30px;
+`;
+
+const TheaterId = styled.div`
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 0px 30px;
+`;
+
+const SeatNo = styled.div`
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 0px 30px;
+`;
+
+const Ticketright = styled.div`
+  width: 30%;
+  height: 100%;
+  /* border: solid #060a0d; */
+  background: linear-gradient(
+    to right,
+    #d7d4b887,
+    #dedccc2d,
+    #fcfbefa5,
+    #ffffff,
+    #fffef7be,
+    #fcfbf0b1
+  );
+  border-radius: 0 30px 30px 0;
+  border-left: dotted #626161;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TicketImage = styled.img`
+  width: 80%;
+`;
+
+const MovieBookingNum = styled.div`
+  font-size: 14px;
+  text-align: center;
+  margin: 0px 30px;
+`;
+
 const Main = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  // 팝업 열기 함수
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  // 팝업 닫기 함수
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
   return (
     <>
       <MyMenu>
@@ -169,7 +366,9 @@ const Main = () => {
         <BookingDetailsBarFrame>
           <BookingDetailsTitle>
             <BookingDetailsMenu>최근 예매내역 (티켓)</BookingDetailsMenu>
-            <BookingDetailsButton>{">>"}더보기</BookingDetailsButton>
+            <BookingDetailsButton to="/mypage/mytickets">
+              {">>"}더보기
+            </BookingDetailsButton>
           </BookingDetailsTitle>
         </BookingDetailsBarFrame>
 
@@ -190,17 +389,31 @@ const Main = () => {
               </PosterLink>
 
               <BookingInfo>
-                <BookingTitle>듄-파트2</BookingTitle>
+                <BookingTitle to="http://www.cgv.co.kr/movies/detail-view/?midx=87947">
+                  듄-파트2
+                </BookingTitle>
+                <br />
                 <BookingText>관람일시 2024.03.25(월)</BookingText>
                 <BookingText>상영시간 16:45~19:41</BookingText>
                 <BookingText>관람극장 CGV 강남</BookingText>
                 <BookingText>상영관 1관 좌석 G-14</BookingText>
-                <BookingText>인원 일반 2명</BookingText>
-
-                <dBookingText>예매 번호 0012-3344-5566-789</dBookingText>
+                <dBookingText>인원 일반 2명</dBookingText>
+                <br />
+                <BookingText>예매 번호 </BookingText>
+                <BookingText>0012-3344-5566-789</BookingText>
+                <br />
+                <TicketButton onClick={openPopup}>나의 티켓</TicketButton>
               </BookingInfo>
 
-              <Col>세부 결제 정보</Col>
+              <PayInfo>
+                <BookingText>신용카드</BookingText>
+                <br />
+                <BookingText>카드사명 신한카드</BookingText>
+                <BookingText>카드번호 1234-1234-****-1234</BookingText>
+                <br />
+                <BookingText>결제일 2024-03-14</BookingText>
+                <BookingText>총 결제금액 14,000원</BookingText>
+              </PayInfo>
             </BookingDetailsContents>
           </BookingDetailsCol>
 
@@ -214,18 +427,31 @@ const Main = () => {
               </PosterLink>
 
               <BookingInfo>
-                <BookingTitle>듄-파트2</BookingTitle>
-
+                <BookingTitle to="http://www.cgv.co.kr/movies/detail-view/?midx=88092">
+                  유미의 세포들
+                </BookingTitle>
+                <br />
                 <BookingText>관람일시 2024.03.25(월)</BookingText>
                 <BookingText>상영시간 16:45~19:41</BookingText>
                 <BookingText>관람극장 CGV 강남</BookingText>
                 <BookingText>상영관 1관 좌석 G-14</BookingText>
                 <dBookingText>인원 일반 2명</dBookingText>
-
-                <BookingText>예매 번호 0012-3344-5566-789</BookingText>
+                <br />
+                <BookingText>예매 번호 </BookingText>
+                <BookingText>0012-3344-5566-789</BookingText>
+                <br />
+                <TicketButton onClick={openPopup}>나의 티켓</TicketButton>
               </BookingInfo>
 
-              <Col>세부 결제 정보</Col>
+              <PayInfo>
+                <BookingText>신용카드</BookingText>
+                <br />
+                <BookingText>카드사명 신한카드</BookingText>
+                <BookingText>카드번호 1234-1234-****-1234</BookingText>
+                <br />
+                <BookingText>결제일 2024-03-14</BookingText>
+                <BookingText>총 결제금액 14,000원</BookingText>
+              </PayInfo>
             </BookingDetailsContents>
           </BookingDetailsCol>
 
@@ -239,22 +465,64 @@ const Main = () => {
               </PosterLink>
 
               <BookingInfo>
-                <BookingTitle>듄-파트2</BookingTitle>
-
+                <BookingTitle to="http://www.cgv.co.kr/movies/detail-view/?midx=88077">
+                  댓글부대
+                </BookingTitle>
+                <br />
                 <BookingText>관람일시 2024.03.25(월)</BookingText>
                 <BookingText>상영시간 16:45~19:41</BookingText>
                 <BookingText>관람극장 CGV 강남</BookingText>
                 <BookingText>상영관 1관 좌석 G-14</BookingText>
-                <BookingText>인원 일반 2명</BookingText>
-
-                <BookingText>예매 번호 0012-3344-5566-789</BookingText>
+                <dBookingText>인원 일반 2명</dBookingText>
+                <br />
+                <BookingText>예매 번호 </BookingText>
+                <BookingText>0012-3344-5566-789</BookingText>
+                <br />
+                <TicketButton onClick={openPopup}>나의 티켓</TicketButton>
               </BookingInfo>
 
-              <Col>세부 결제 정보</Col>
+              <PayInfo>
+                <BookingText>신용카드</BookingText>
+                <br />
+                <BookingText>카드사명 신한카드</BookingText>
+                <BookingText>카드번호 1234-1234-****-1234</BookingText>
+                <br />
+                <BookingText>결제일 2024-03-14</BookingText>
+                <BookingText>총 결제금액 14,000원</BookingText>
+              </PayInfo>
             </BookingDetailsContents>
           </BookingDetailsCol>
         </BookingDetailsFrame>
       </BookingDetails>
+
+      {/* 팝업을 팝업 상태에 따라 렌더링 */}
+      {popupOpen && (
+        <Popup>
+          {/* 팝업 닫기 버튼 */}
+          <CloseButton onClick={closePopup}>X 닫기</CloseButton>
+          {/* 팝업 내용 */}
+          Your Ticket
+          <Ticket>
+            <Ticketleft>
+              <TicketName>MOVIE TICKET</TicketName>
+              <MovieTitle>
+                <FilmIcon src={filmIcon} alt="필름 아이콘"></FilmIcon>
+                <MovieName>movieName</MovieName>
+              </MovieTitle>
+
+              <ShowTimeDate>관람일시 showTimeDate</ShowTimeDate>
+              <ShowTime>상영시간 showTime</ShowTime>
+              <CinemaId>관람극장 cinemaId</CinemaId>
+              <TheaterId>상영관 theaterId</TheaterId>
+              <SeatNo>좌석 seatNo</SeatNo>
+            </Ticketleft>
+            <Ticketright>
+              <TicketImage src={ticketImage} alt="티켓 이미지"></TicketImage>
+              <MovieBookingNum>예매 번호 bookingNum</MovieBookingNum>
+            </Ticketright>
+          </Ticket>
+        </Popup>
+      )}
     </>
   );
 };

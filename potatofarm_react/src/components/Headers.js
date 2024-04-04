@@ -101,6 +101,7 @@ const Navbar = styled.div`
   overflow: hidden;
   background-color: #333;
   font-family: Arial;
+  min-width: 915px;
 `;
 
 const Dropdown = styled.div`
@@ -154,6 +155,7 @@ const DropdownContent = styled.div`
   position: absolute;
   background-color: #f9f9f9;
   width: 100%;
+  min-width: 915px;
   left: 0;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -180,6 +182,7 @@ const LeftMenuContent = styled.div`
 `;
 
 const RightMenuContent = styled.div`
+  margin: 20px 0;
   display: flex;
   align-items: center;
   /* justify-content: flex-end; */
@@ -191,21 +194,25 @@ const Column = styled.div`
   /* width: 20%; */
   padding: 10px;
   /* background-color: #ccc; */
-  height: 200px;
+  height: 240px;
   text-align: center;
   // margin-right: 20px;
   padding: 0px 45px;
 `;
 
-const ColumnHeading = styled.h3`
+const ColumnHeading = styled(Link)`
   color: black;
+  padding: 10px;
+  margin: 5px;
+  text-decoration: none;
   text-align: center;
 `;
 
-const ColumnLink = styled.a`
+const ColumnLink = styled(Link)`
   float: none;
   color: black;
   padding: 10px;
+  font-size: 13px;
   text-decoration: none;
   display: block;
   text-align: center;
@@ -300,10 +307,17 @@ const Headers = () => {
 
               <RightMenuContent>
                 <Column>
-                  <ColumnHeading>My_page</ColumnHeading>
-                  <ColumnLink>Link 1</ColumnLink>
-                  <ColumnLink>Link 2</ColumnLink>
-                  <ColumnLink>Link 3</ColumnLink>
+                  <ColumnHeading to="/mypage">My_page</ColumnHeading>
+                  <ColumnLink to="/mypage/mytickets">
+                    예매 내역(티켓)
+                  </ColumnLink>
+                  <ColumnLink to="/mypage/mvwntsee">보고 싶은 영화</ColumnLink>
+                  <ColumnLink to="/mypage/mvisaw">내가 본 영화</ColumnLink>
+                  <ColumnLink to="/mypage/mycomments">
+                    내가 쓴 코멘트
+                  </ColumnLink>
+                  <ColumnLink>회원정보 수정</ColumnLink>
+                  <ColumnLink>로그아웃</ColumnLink>
                 </Column>
               </RightMenuContent>
             </Row>
