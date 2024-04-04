@@ -3,7 +3,9 @@ import styled from "styled-components";
 import imageLogo from "../images/logo.png";
 import chatbotIcon from "../images/chatbot.png";
 import userImage from "../images/userImage.png";
+import { Link } from "react-router-dom";
 
+// header
 const HeadersContainer = styled.div`
   background-color: #fff;
   padding: 2px 20px;
@@ -94,6 +96,126 @@ const LogOutButton = styled.button`
   font-size: 12px;
 `;
 
+// navigation bar
+const Navbar = styled.div`
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+`;
+
+const Dropdown = styled.div`
+  overflow: hidden;
+`;
+
+const Dropbtn = styled.button`
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+`;
+
+const RightMenuDropbtn = styled(Link)`
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  text-decoration: none;
+  font: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+`;
+
+const MenuBar = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const LeftMenu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 20px;
+`;
+
+const RightMenu = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+`;
+
+const DropdownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  left: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* padding: 0px 48px; 위아래, 양옆 */
+  animation: slideDown 1s ease forwards;
+
+  ${Navbar}:hover & {
+    display: block;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0;
+`;
+
+const LeftMenuContent = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+  // margin-left: 20px;
+`;
+
+const RightMenuContent = styled.div`
+  display: flex;
+  align-items: center;
+  /* justify-content: flex-end; */
+  margin-left: auto;
+  // margin-right: 20px;
+`;
+
+const Column = styled.div`
+  /* width: 20%; */
+  padding: 10px;
+  /* background-color: #ccc; */
+  height: 200px;
+  text-align: center;
+  // margin-right: 20px;
+  padding: 0px 45px;
+`;
+
+const ColumnHeading = styled.h3`
+  color: black;
+  text-align: center;
+`;
+
+const ColumnLink = styled.a`
+  float: none;
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+    /* background-color: #ddd; */
+  }
+`;
+
 const Headers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -106,26 +228,91 @@ const Headers = () => {
   };
 
   return (
-    <HeadersContainer>
-      <a href="#">
-        <Logo>
-          <ImageLogo src={imageLogo} alt="로고" />
-          <TextLogo>감자밭</TextLogo>
-        </Logo>
-      </a>
-      <RightTopMenu>
-        <ChatbotIcon src={chatbotIcon} alt="챗봇" />
-        {isLoggedIn ? (
-          <User>
-            <UserImage src={userImage} alt="유저이미지" />
-            <UserIdButton>UserName</UserIdButton>
-            <LogOutButton onClick={handleLogout}>로그아웃</LogOutButton>
-          </User>
-        ) : (
-          <LogInButton onClick={handleLogin}>로그인</LogInButton>
-        )}
-      </RightTopMenu>
-    </HeadersContainer>
+    <>
+      {/* header */}
+      <HeadersContainer>
+        <a href="#">
+          <Logo>
+            <ImageLogo src={imageLogo} alt="로고" />
+            <TextLogo>감자밭</TextLogo>
+          </Logo>
+        </a>
+        <RightTopMenu>
+          <ChatbotIcon src={chatbotIcon} alt="챗봇" />
+          {isLoggedIn ? (
+            <User>
+              <UserImage src={userImage} alt="유저이미지" />
+              <UserIdButton>UserName</UserIdButton>
+              <LogOutButton onClick={handleLogout}>로그아웃</LogOutButton>
+            </User>
+          ) : (
+            <LogInButton onClick={handleLogin}>로그인</LogInButton>
+          )}
+        </RightTopMenu>
+      </HeadersContainer>
+
+      {/* navigation bar */}
+      <Navbar>
+        <Dropdown>
+          <MenuBar>
+            <LeftMenu>
+              <Dropbtn>movie</Dropbtn>
+              <Dropbtn>review</Dropbtn>
+              <Dropbtn>booking</Dropbtn>
+              <Dropbtn>box-office</Dropbtn>
+            </LeftMenu>
+            <RightMenu>
+              <RightMenuDropbtn to="/mypage">My-page</RightMenuDropbtn>
+            </RightMenu>
+          </MenuBar>
+
+          <DropdownContent>
+            <Row>
+              <LeftMenuContent>
+                <Column>
+                  <ColumnHeading>movie</ColumnHeading>
+                  <ColumnLink>Link1</ColumnLink>
+                  <ColumnLink>Link2</ColumnLink>
+                  <ColumnLink>Link3</ColumnLink>
+                </Column>
+
+                <Column>
+                  <ColumnHeading>review</ColumnHeading>
+                  <ColumnLink>Link1</ColumnLink>
+                  <ColumnLink>Link2</ColumnLink>
+                  <ColumnLink>Link3</ColumnLink>
+                </Column>
+
+                <Column>
+                  <ColumnHeading>booking</ColumnHeading>
+                  <ColumnLink>Link1</ColumnLink>
+                  <ColumnLink>Link2</ColumnLink>
+                  <ColumnLink>Link3</ColumnLink>
+                </Column>
+
+                <Column>
+                  <ColumnHeading>box-office</ColumnHeading>
+                  <ColumnLink>Link1</ColumnLink>
+                  <ColumnLink>Link2</ColumnLink>
+                  <ColumnLink>Link3</ColumnLink>
+                </Column>
+              </LeftMenuContent>
+
+              <RightMenuContent>
+                <Column>
+                  <ColumnHeading>My_page</ColumnHeading>
+                  <ColumnLink>Link 1</ColumnLink>
+                  <ColumnLink>Link 2</ColumnLink>
+                  <ColumnLink>Link 3</ColumnLink>
+                </Column>
+              </RightMenuContent>
+            </Row>
+          </DropdownContent>
+        </Dropdown>
+      </Navbar>
+
+      <div class="login"></div>
+    </>
   );
 };
 

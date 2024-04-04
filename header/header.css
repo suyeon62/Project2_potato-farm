@@ -1,25 +1,8 @@
-.header{
-  background-color: #a4c991; /*a4c991*/
-  padding: 5px 50px; /*위아래, 양옆*/
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer{
-  background-color: #a4c991;
-  padding: 5px 50px;
-  color: white;
-  display: flex;
-}
-
 /* Navbar container */
 .navbar {
   overflow: hidden;
   background-color: #333;
   font-family: Arial;
-  display: flex;
 }
 
 p {
@@ -36,11 +19,28 @@ p {
   text-decoration: none;
 }
 
+.menuBar {
+  display: flex;
+  align-items: center;
+}
+
+.leftMenu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  margin-left: 20px;
+}
+
+.rightMenu {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 자동 마진을 이용해 오른쪽 정렬 */
+  margin-right: 20px;
+}
+
 /* The dropdown container */
 .dropdown {
-  float: left;
   overflow: hidden;
-  
 }
 
 /* Dropdown button */
@@ -53,9 +53,7 @@ p {
   background-color: inherit;
   font: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
-  
 }
-
 
 /* Add a red background color to navbar links on hover */
 /* .navbar a:hover, .dropdown:hover .dropbtn {
@@ -67,12 +65,12 @@ p {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  width: 85%;
+  width: 100%;
   left: 0;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  padding: 0px 48px; /*위아래, 양옆*/
-  animation: slideDown 1s ease forwards; 
+  /* padding: 0px 48px; 위아래, 양옆 */
+  animation: slideDown 1s ease forwards;
 }
 
 /* Show the dropdown menu on hover */
@@ -80,11 +78,26 @@ p {
   display: block;
 }
 
+.leftMenu-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+
+.rightMenu-content {
+  display: flex;
+  align-items: center;
+  /* justify-content: flex-end; */
+  margin-left: auto;
+  margin-right: 20px;
+}
+
 /* Create three equal columns that floats next to each other */
 .column {
-  float: left;
-  width: 15%;
-  padding: 5px;
+  /* width: 20%; */
+  padding: 10px;
+  margin-right: 70px;
   /* background-color: #ccc; */
   height: 200px;
 }
@@ -96,11 +109,12 @@ p {
   padding: 10px;
   text-decoration: none;
   display: block;
+
   text-align: left;
 }
 
 /*h3 color*/
-.column h3{
+.column h3 {
   color: black;
 }
 
@@ -110,6 +124,12 @@ p {
   text-decoration: underline;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -117,10 +137,10 @@ p {
   clear: both;
 }
 
-.login{
+.login {
   background-color: yellow;
   width: 100px;
-  height: 100px;
+  height: 200px;
   top: 50%;
   left: 50%;
   position: relative;
