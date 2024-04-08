@@ -3,6 +3,7 @@ import styled from "styled-components";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
+import graystar from "../../images/graystar.png";
 import { Link } from "react-router-dom";
 
 const Comment = styled.div`
@@ -57,7 +58,26 @@ const MovieName = styled.div`
   margin-top: 3px;
 `;
 
-const MovieRate = styled.div``;
+const MovieRate = styled.div`
+  display: flex;
+  align-items: center;
+  color: rgb(74, 74, 74);
+  border: solid 1px rgb(234, 234, 234);
+  border-radius: 13px;
+  padding: 0 8px;
+  margin-top: 5px;
+`;
+
+const RateImage = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const UserRate = styled.div`
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 4px;
+`;
 
 const PosterLink = styled(Link)``;
 
@@ -120,7 +140,10 @@ const CommentDetails = () => {
                 <UserName>userName</UserName>
               </BoxTitle>
               <MovieName>movieName</MovieName>
-              <MovieRate>userRate</MovieRate>
+              <MovieRate>
+                <RateImage src={graystar} alt="별점 이미지"></RateImage>
+                <UserRate>userRate</UserRate>
+              </MovieRate>
             </BoxTitleContainer>
 
             <PosterLink to="/movieInfo">
