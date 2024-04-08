@@ -2,18 +2,26 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import searchIcon from "../images/searchIcon.png";
-import userIcon from "../images/userIcon.png";
+import userImage from "../images/userImage.png";
 import { Link } from "react-router-dom";
+
+const HeadersContainers = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ededed;
+`;
 
 const Navbar = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 25px;
+  width: 1320px;
 `;
 
 const Logo = styled.img`
-  width: 150px;
-  height: 22px;
+  width: 148px;
+  height: 21px;
 `;
 
 const Dropdown = styled.div`
@@ -22,28 +30,34 @@ const Dropdown = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 0;
+  margin-left: 10px;
 `;
 const MenuBar = styled.div`
   position: relative;
-  padding: 0 10px;
+  padding: 5px 10px;
   /* display: flex; */
   justify-content: space-between;
   align-items: center; /* 세로 가운데 정렬 추가 */
-  cursor: pointer;
 `;
 
 const Dropbtn = styled.button`
-  font-size: 15px;
+  font-size: 14px;
   border: none;
   color: #a5a5aa;
   font-weight: bold;
   background-color: inherit;
+  cursor: pointer;
+
+  ${MenuBar}:hover & {
+    color: #292a32;
+  }
 `;
 
 const DropdownBox = styled.div`
   display: none;
   position: absolute;
-  top: 28px;
+  top: 27px;
   left: 50%;
   transform: translate(-50%, 5px); /* 가로와 세로 모두 중앙으로 이동 */
   width: 100px;
@@ -52,7 +66,7 @@ const DropdownBox = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   z-index: 1;
-  /* padding: 0px 48px; 위아래, 양옆 */
+  padding: 5px 5px;
   animation: slideDown 1s ease forwards;
 
   ${MenuBar}:hover & {
@@ -60,17 +74,11 @@ const DropdownBox = styled.div`
   }
 `;
 
-const DropdownContent = styled.div`
-  display: flex;
-
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
-`;
-
 const ColumnLink = styled(Link)`
+  display: block;
   text-decoration: none;
-  font-size: 14px;
+  text-align: center;
+  font-size: 13px;
   color: #1c1d1f;
   padding: 5px 0;
 
@@ -112,73 +120,111 @@ const SearchInput = styled.input`
 
   &:hover,
   &:focus {
-    border-color: #007bff;
+    border-color: #a0a0a0;
   }
 `;
 
-const UserIcon = styled.img`
+const UserImage = styled.img`
   border: 1.5 solid #ededed;
   border-radius: 50%;
   background-color: #b9babe;
   margin-left: 10px;
 `;
 
+const BeforeLogIn = styled.div``;
+
+const LogInButton = styled.button`
+  background-color: white;
+  border: none;
+  color: #84848b;
+  padding: 8px 18px;
+  text-decoration-color: #342222;
+  text-align: center;
+  font-size: 13px;
+  cursor: pointer;
+`;
+
+const SignUpButton = styled.button`
+  background-color: white;
+  border: solid 1px #b9b9bd;
+  border-radius: 5px;
+  padding: 5px 11px;
+  color: #353535;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
 // 이미지를 클릭 가능한 링크로 감싸는 컴포넌트
-const UserIconLink = styled(Link)``;
+const UserImageLink = styled(Link)``;
 
 const Headers = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
-      <Navbar>
-        <Logo src={logo} alt="로고"></Logo>
-        <Dropdown>
-          <MenuBar>
-            <Dropbtn>영화</Dropbtn>
-            <DropdownBox>
-              <DropdownContent>
+      <HeadersContainers>
+        <Navbar>
+          <Logo src={logo} alt="로고"></Logo>
+          <Dropdown>
+            <MenuBar>
+              <Dropbtn>영화</Dropbtn>
+              <DropdownBox>
                 <ColumnLink>장르</ColumnLink>
                 <ColumnLink>다큐</ColumnLink>
                 <ColumnLink>스릴</ColumnLink>
-              </DropdownContent>
-            </DropdownBox>
-          </MenuBar>
+              </DropdownBox>
+            </MenuBar>
 
-          <MenuBar>
-            <Dropbtn>박스오피스</Dropbtn>
-            <DropdownBox>
-              <DropdownContent>
+            <MenuBar>
+              <Dropbtn>박스오피스</Dropbtn>
+              <DropdownBox>
                 <ColumnLink>일간</ColumnLink>
                 <ColumnLink>주간</ColumnLink>
-              </DropdownContent>
-            </DropdownBox>
-          </MenuBar>
+              </DropdownBox>
+            </MenuBar>
 
-          <MenuBar>
-            <Dropbtn>플레이그라운드</Dropbtn>
-            <DropdownBox>
-              <DropdownContent>
+            <MenuBar>
+              <Dropbtn>플레이그라운드</Dropbtn>
+              <DropdownBox>
                 <ColumnLink>공지사항</ColumnLink>
                 <ColumnLink>이벤트1</ColumnLink>
                 <ColumnLink>이벤트2</ColumnLink>
-              </DropdownContent>
-            </DropdownBox>
-          </MenuBar>
-        </Dropdown>
+              </DropdownBox>
+            </MenuBar>
+          </Dropdown>
 
-        <UserMenu>
-          <SearchContainer>
-            <SearchIcon src={searchIcon} alt="검색 아이콘" />
-            <SearchInput
-              type="search"
-              placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
-            />
-          </SearchContainer>
-          <UserIconLink>
-            {/* <UserIconLink to="/user-profile"> */}
-            <UserIcon src={userIcon} alt="유저 아이콘" />
-          </UserIconLink>
-        </UserMenu>
-      </Navbar>
+          <UserMenu>
+            <SearchContainer>
+              <SearchIcon src={searchIcon} alt="검색 아이콘" />
+              <SearchInput
+                type="search"
+                placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
+              />
+            </SearchContainer>
+            {isLoggedIn ? (
+              <UserImageLink onClick={handleLogout}>
+                {/* <UserImageLink to="/user-profile"> */}
+                <UserImage src={userImage} alt="유저 이미지" />
+              </UserImageLink>
+            ) : (
+              <BeforeLogIn>
+                <LogInButton onClick={handleLogin}>로그인</LogInButton>
+                <SignUpButton>회원가입</SignUpButton>
+              </BeforeLogIn>
+            )}
+          </UserMenu>
+        </Navbar>
+      </HeadersContainers>
     </>
   );
 };

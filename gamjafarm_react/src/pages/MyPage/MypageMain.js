@@ -330,7 +330,7 @@ const MovieBookingNum = styled.div`
   margin: 0px 30px;
 `;
 
-const Main = () => {
+const MypageMain = () => {
   const [popupOpen, setPopupOpen] = useState(false);
 
   // 팝업 열기 함수
@@ -527,4 +527,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MypageMain;
