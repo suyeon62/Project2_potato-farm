@@ -6,10 +6,11 @@ import userImage from "../images/userImage.png";
 import { Link } from "react-router-dom";
 
 const HeadersContainers = styled.div`
+  background-color: #000000;
   width: 100%;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #ededed40;
 `;
 
 const Navbar = styled.div`
@@ -18,6 +19,8 @@ const Navbar = styled.div`
   margin: 10px 25px;
   width: 1320px;
 `;
+
+const LogoLink = styled(Link)``;
 
 const Logo = styled.img`
   width: 148px;
@@ -50,7 +53,7 @@ const Dropbtn = styled.button`
   cursor: pointer;
 
   ${MenuBar}:hover & {
-    color: #292a32;
+    color: #ededed;
   }
 `;
 
@@ -60,10 +63,9 @@ const DropdownBox = styled.div`
   top: 27px;
   left: 50%;
   transform: translate(-50%, 5px); /* 가로와 세로 모두 중앙으로 이동 */
-  width: 100px;
-  background-color: #f9f9f9;
-  width: 90px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  width: 105px;
+  background-color: black;
+  box-shadow: 5px 5px 10px rgba(180, 180, 180, 0.2);
   border-radius: 3px;
   z-index: 1;
   padding: 5px 5px;
@@ -79,7 +81,7 @@ const ColumnLink = styled(Link)`
   text-decoration: none;
   text-align: center;
   font-size: 13px;
-  color: #1c1d1f;
+  color: #ededed;
   padding: 5px 0;
 
   &:hover {
@@ -95,6 +97,7 @@ const UserMenu = styled.div`
 
 const SearchContainer = styled.div`
   position: relative;
+  opacity: 0.4;
 `;
 
 // 검색 아이콘
@@ -110,7 +113,7 @@ const SearchIcon = styled.img`
 const SearchInput = styled.input`
   padding: 8px 12px;
   padding-left: 35px; /* 아이콘과 겹치지 않게 왼쪽 패딩 추가 */
-  background-color: #f5f5f7;
+  background-color: #ededed;
   border: none;
   border-radius: 2px;
   font-size: 12px;
@@ -129,6 +132,7 @@ const UserImage = styled.img`
   border-radius: 50%;
   background-color: #b9babe;
   margin-left: 10px;
+  opacity: 0.4;
 `;
 
 const BeforeLogIn = styled.div``;
@@ -174,7 +178,9 @@ const Headers = () => {
     <>
       <HeadersContainers>
         <Navbar>
-          <Logo src={logo} alt="로고"></Logo>
+          <LogoLink to="">
+            <Logo src={logo} alt="로고"></Logo>
+          </LogoLink>
           <Dropdown>
             <MenuBar>
               <Dropbtn>영화</Dropbtn>
@@ -196,9 +202,9 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>플레이그라운드</Dropbtn>
               <DropdownBox>
+                <ColumnLink to="/comments">지금 뜨는 코멘트</ColumnLink>
                 <ColumnLink>공지사항</ColumnLink>
-                <ColumnLink>이벤트1</ColumnLink>
-                <ColumnLink>이벤트2</ColumnLink>
+                <ColumnLink>이벤트</ColumnLink>
               </DropdownBox>
             </MenuBar>
           </Dropdown>

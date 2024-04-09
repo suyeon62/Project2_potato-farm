@@ -6,6 +6,8 @@ import commentImage from "../../images/commentImage.png";
 import { Link } from "react-router-dom";
 
 const MainPage = styled.div`
+  background-color: #212529;
+  color: #ffffff;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -65,6 +67,7 @@ const Box = styled.li`
   width: 429.328px;
   height: 182px;
   flex-shrink: 0;
+  background-color: #00000090;
 `;
 
 const BoxContents = styled.div`
@@ -98,9 +101,13 @@ const UserImage = styled.img`
   margin-right: 4px;
 `;
 
-const UserName = styled.div``;
+const UserName = styled.div`
+  color: #ededed;
+`;
 
-const MovieRate = styled.div``;
+const MovieRate = styled.div`
+  color: #ededed;
+`;
 
 const BoxBodyContainer = styled.div`
   display: flex;
@@ -115,12 +122,14 @@ const MoviePoster = styled.img`
 const MovieComment = styled.div``;
 
 const MovieName = styled.div`
+  color: #ffffff;
   font-weight: 500;
   font-size: 15px;
   margin-bottom: 4px;
 `;
 
 const UserComment = styled.div`
+  color: #ededed;
   font-weight: 400;
   font-size: 15px;
 `;
@@ -140,6 +149,7 @@ const Like = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  color: #ededed;
 `;
 
 const LikeImg = styled.img`
@@ -155,6 +165,7 @@ const UserCommentComment = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  color: #ededed;
 `;
 
 const UserCommentCommentImg = styled.img`

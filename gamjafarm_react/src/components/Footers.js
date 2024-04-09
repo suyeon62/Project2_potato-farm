@@ -8,15 +8,26 @@ import twitterIcon from "../images/twitter.png";
 
 const Footer = styled.div`
   display: flex;
+  flex-direction: column; /* 세로로 배치 */
   justify-content: center;
 `;
 
 const UpperFooter = styled.div`
   background-color: #101113;
+  color: white;
+  font-size: 19px;
   height: 50px;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Em = styled.em`
+  color: rgb(255, 5, 88); /* 원하는 색상으로 변경 */
+  font-size: 19px;
+  font-weight: 500px;
+  font-style: normal;
+  margin: 0 8px;
 `;
 
 const LowerFooter = styled.div`
@@ -83,7 +94,9 @@ const SocialIcon = styled.img`
 const Footers = () => {
   return (
     <Footer>
-      <UpperFooter></UpperFooter>
+      <UpperFooter>
+        지금까지 <Em>★userCommentCnt개의 평가가 </Em>쌓였어요.
+      </UpperFooter>
 
       <LowerFooter>
         <FootersContainer>

@@ -6,6 +6,7 @@ import commentImage from "../../images/commentImage.png";
 import { Link } from "react-router-dom";
 
 const Comments = styled.div`
+  background-color: #212529;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -21,6 +22,7 @@ const CommentHeader = styled.div`
   font-size: 24px;
   font-weight: 700;
   color: rgb(41, 42, 50);
+  color: white;
 `;
 
 const ToggleButtons = styled.div`
@@ -30,11 +32,10 @@ const ToggleButtons = styled.div`
 const Popular = styled.button`
   /* background-color: rgb(255, 255, 255);
   border: 1.6px solid rgb(231, 231, 231); */
-  background-color: ${({ active }) =>
-    active ? "rgb(20, 20, 20)" : "rgb(255, 255, 255)"};
-  color: ${({ active }) => (active ? "rgb(255, 255, 255)" : "inherit")};
+  background-color: ${({ active }) => (active ? "#ededed" : "rgb(20, 20, 20)")};
+  color: ${({ active }) => (active ? "inherit" : "#ededed")};
   border: ${({ active }) =>
-    active ? "1.6px solid rgb(20, 20, 20)" : "1.6px solid rgb(231, 231, 231)"};
+    active ? "1.6px solid #ededed" : "1.6px solid rgb(20, 20, 20)"};
 
   border-radius: 24px;
   padding: 8px 16px;
@@ -48,11 +49,10 @@ const Latest = styled.button`
   /* background-color: rgb(20, 20, 20);
   color: rgb(255, 255, 255);
   border: 1.6px solid rgb(20, 20, 20); */
-  background-color: ${({ active }) =>
-    active ? "rgb(20, 20, 20)" : "rgb(255, 255, 255)"};
-  color: ${({ active }) => (active ? "rgb(255, 255, 255)" : "inherit")};
+  background-color: ${({ active }) => (active ? "#ededed" : "rgb(20, 20, 20)")};
+  color: ${({ active }) => (active ? "inherit" : "#ededed")};
   border: ${({ active }) =>
-    active ? "1.6px solid rgb(20, 20, 20)" : "1.6px solid rgb(231, 231, 231)"};
+    active ? "1.6px solid #ededed" : "1.6px solid rgb(20, 20, 20)"};
 
   border-radius: 24px;
   padding: 8px 16px;
@@ -74,6 +74,7 @@ const Box = styled.div`
   border-radius: 5px;
   padding: 11px;
   pad: 8px 0;
+  background-color: #00000090;
 `;
 
 const CommentBox = styled.div`
@@ -107,9 +108,12 @@ const UserImage = styled.img`
 
 const UserName = styled.div`
   font-size: 14px;
+  color: #ededed;
 `;
 
-const MovieRate = styled.div``;
+const MovieRate = styled.div`
+  color: #ededed;
+`;
 
 const BoxBodyContainer = styled.div`
   display: flex;
@@ -133,15 +137,18 @@ const MovieName = styled.div`
   font-weight: 500;
   font-size: 15px;
   margin-bottom: 4px;
+  color: white;
 `;
 
 const UserComment = styled.div`
   font-weight: 400;
   font-size: 15px;
+  color: #ededed;
 `;
 
 const Cnt = styled.div`
   display: flex;
+  color: #ededed;
 `;
 
 const LikeCnt = styled.div`
