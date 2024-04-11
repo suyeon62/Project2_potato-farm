@@ -186,14 +186,14 @@ const Main = () => {
           <Comments>
             <CommentHeader>
               <CommentHeaderName>지금 뜨는 코멘트</CommentHeaderName>
-              <More to="/comments">더보기 {">"}</More>
+              <More to="/playground/comments">더보기 {">"}</More>
             </CommentHeader>
 
             <BoxContainer>
               <BoxList>
                 <Box>
                   <BoxContents>
-                    <CommentBox to="/comments">
+                    <CommentBox to="/playground/comments">
                       <BoxTitle>
                         <BoxTitleContainer>
                           <UserImage
@@ -243,7 +243,7 @@ const Main = () => {
 
                 <Box>
                   <BoxContents>
-                    <CommentBox to="/comments">
+                    <CommentBox to="/playground/comments">
                       <BoxTitle>
                         <BoxTitleContainer>
                           <UserImage
@@ -293,7 +293,7 @@ const Main = () => {
 
                 <Box>
                   <BoxContents>
-                    <CommentBox to="/comments">
+                    <CommentBox to="/playground/comments">
                       <BoxTitle>
                         <BoxTitleContainer>
                           <UserImage
@@ -343,7 +343,7 @@ const Main = () => {
 
                 <Box>
                   <BoxContents>
-                    <CommentBox to="/comments">
+                    <CommentBox to="/playground/comments">
                       <BoxTitle>
                         <BoxTitleContainer>
                           <UserImage

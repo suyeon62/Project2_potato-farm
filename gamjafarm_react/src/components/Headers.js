@@ -138,9 +138,9 @@ const UserImage = styled.img`
 const BeforeLogIn = styled.div``;
 
 const LogInButton = styled.button`
-  background-color: white;
+  background-color: inherit;
   border: none;
-  color: #84848b;
+  color: #a5a5aa;
   padding: 8px 18px;
   text-decoration-color: #342222;
   text-align: center;
@@ -149,11 +149,11 @@ const LogInButton = styled.button`
 `;
 
 const SignUpButton = styled.button`
-  background-color: white;
+  background-color: black;
   border: solid 1px #b9b9bd;
   border-radius: 5px;
   padding: 5px 11px;
-  color: #353535;
+  color: white;
   text-align: center;
   font-size: 13px;
   font-weight: bold;
@@ -194,15 +194,17 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>박스오피스</Dropbtn>
               <DropdownBox>
-                <ColumnLink>일간</ColumnLink>
-                <ColumnLink>주간</ColumnLink>
+                <ColumnLink to="/boxoffice/daily">일간</ColumnLink>
+                <ColumnLink to="/boxoffice/monthly">주간</ColumnLink>
               </DropdownBox>
             </MenuBar>
 
             <MenuBar>
               <Dropbtn>플레이그라운드</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/comments">지금 뜨는 코멘트</ColumnLink>
+                <ColumnLink to="/playground/comments">
+                  지금 뜨는 코멘트
+                </ColumnLink>
                 <ColumnLink>공지사항</ColumnLink>
                 <ColumnLink>이벤트</ColumnLink>
               </DropdownBox>

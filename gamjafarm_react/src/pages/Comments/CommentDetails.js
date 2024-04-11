@@ -12,7 +12,7 @@ const Comment = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 55px;
+  padding-bottom: 55px;
 `;
 
 const CommentBox = styled.div`
@@ -409,7 +409,7 @@ const CommentDetails = () => {
               </MovieRate>
             </BoxTitle>
 
-            <PosterLink to="/movieInfo">
+            <PosterLink to="/movie/${movieName}">
               <Poster
                 to
                 src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"

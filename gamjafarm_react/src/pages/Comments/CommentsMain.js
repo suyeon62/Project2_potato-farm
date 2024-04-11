@@ -216,14 +216,14 @@ const CommentsMain = () => {
                 </BoxTitleContainer>
 
                 <BoxBodyContainer>
-                  <PosterLink to="/movieInfo">
+                  <PosterLink to="/movie/${movieName}">
                     <Poster
                       to
                       src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
                       alt="poster"
                     ></Poster>
                   </PosterLink>
-                  <MovieComment to="/comments/1">
+                  <MovieComment to="/playground/comments/1">
                     <MovieName>movieName</MovieName>
                     <UserComment>userComment</UserComment>
                   </MovieComment>

@@ -9,8 +9,11 @@ import MvISaw from "./pages/MyPage/MvISaw";
 import MyComments from "./pages/MyPage/MyComments";
 import CommentsMain from "./pages/Comments/CommentsMain";
 import CommentDetails from "./pages/Comments/CommentDetails";
-import MovieInfo from "./pages/Movie/MovieInfo";
+import MovieInfo from "./pages/MovieInfo/MovieInfo";
 import MypageMain from "./pages/MyPage/MypageMain";
+import MovieInfoComments from "./pages/MovieInfo/MovieInfoComments";
+import DailyBoxoffice from "./pages/Boxoffice/DailyBoxoffice";
+import MonthlyBoxoffice from "./pages/Boxoffice/MonthlyBoxoffice";
 
 function App() {
   return (
@@ -19,10 +22,23 @@ function App() {
 
       <Routes>
         <Route path="" element={<Main />} />
-        <Route path="/comments" element={<CommentsMain />} />
-        <Route path="/comments/:currentPage" element={<CommentDetails />} />
 
-        <Route path="/movieInfo" element={<MovieInfo />} />
+        {/* <Route path="/movie" element={<MovieInfo />} /> */}
+        {/* <Route path="/movie/:genre" element={<MovieInfo />} /> */}
+        <Route path="/movie/:movieName" element={<MovieInfo />} />
+        <Route
+          path="/movie/:movieName/comments"
+          element={<MovieInfoComments />}
+        />
+
+        <Route path="/boxoffice/daily" element={<DailyBoxoffice />} />
+        <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
+
+        <Route path="/playground/comments" element={<CommentsMain />} />
+        <Route
+          path="/playground/comments/:currentPage"
+          element={<CommentDetails />}
+        />
 
         <Route path="/mypage" element={<MypageMain />} />
         {/* <Route path="/mypage/*" element={<MypageLayout />}>
