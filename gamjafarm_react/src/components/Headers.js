@@ -185,7 +185,7 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>영화</Dropbtn>
               <DropdownBox>
-                <ColumnLink>장르</ColumnLink>
+                <ColumnLink to="/${genre}">장르</ColumnLink>
                 <ColumnLink>다큐</ColumnLink>
                 <ColumnLink>스릴</ColumnLink>
               </DropdownBox>
@@ -194,7 +194,7 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>박스오피스</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/boxoffice/daily">일간</ColumnLink>
+                <ColumnLink to="/boxoffice">일간</ColumnLink>
                 <ColumnLink to="/boxoffice/monthly">주간</ColumnLink>
               </DropdownBox>
             </MenuBar>

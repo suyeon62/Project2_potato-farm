@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import graystar from "../../images/graystar.png";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
+import arrowleft from "../../images/arrow-left.png";
+import arrowright from "../../images/arrow-right.png";
 import { Link } from "react-router-dom";
+import { scrollLeft, scrollRight } from "../../Hook/scrollFunctions";
 
 const Movie = styled.div`
   width: 100%;
@@ -180,7 +183,7 @@ const UserReviewCnt = styled.div`
   margin-left: 8px;
 `;
 
-const MoreButton = styled(Link)`
+const MoreBtn = styled(Link)`
   background-color: inherit;
   color: rgb(255, 47, 110);
   text-decoration: none;
@@ -282,6 +285,39 @@ const UserCommentCommentImg = styled.img`
 const UserCommentCommentCnt = styled.div`
   font-size: 14px;
 `;
+
+const LeftBtn = styled.div`
+  position: absolute;
+  left: -10px;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 24px;
+  background-image: url("gradientRight.svg");
+  cursor: pointer;
+  margin-left: -32px;
+`;
+
+const LeftBtnIcon = styled.img``;
+
+const RightBtn = styled.div`
+  position: absolute;
+  right: -10px;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 24px;
+  background-image: url("gradientRight.svg");
+  cursor: pointer;
+  margin-right: -32px;
+`;
+
+const RightBtnIcon = styled.img``;
+
 const Stillcut = styled.div`
   margin-top: 60px;
 `;
@@ -292,24 +328,30 @@ const StillcutTitle = styled.div`
 `;
 
 const StillcutContentsContainer = styled.div`
+  position: relative;
   padding: 0 5px;
   height: 320px;
-  overflow: auto;
 `;
 
 const WrapStillcutContents = styled.ul`
   padding: 0;
   margin-top: 5px;
   margin-bottom: 25px;
-  margin-right: -5px !important;
-  margin-left: -5px !important;
+  /* margin-right: -5px !important;
+  margin-left: -5px !important; */
   display: flex;
+  overflow-x: scroll;
+  -webkit-scrollbar: no-button;
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
+  scroll-behavior: smooth;
+  column-gap: 4px;
+  scroll-behavior: smooth;
 `;
 const StillcutContents = styled.li`
-  /* display: inline-block; */
-  /* width: 33.3333%; */
-  flex: 0 0 calc(33.3333% - 10px);
-
+  width: calc(33.3333% - 15px);
+  flex-shrink: 0;
   height: 258px;
   padding: 0 5px;
   list-style-type: none;
@@ -327,24 +369,30 @@ const TeaserTitle = styled.div`
 `;
 
 const TeaserContentsContainer = styled.div`
+  position: relative;
   padding: 0 5px;
   height: 320px;
-  overflow: auto;
 `;
 
 const WrapTeaserContents = styled.ul`
   padding: 0;
   margin-top: 5px;
   margin-bottom: 25px;
-  margin-right: -5px !important;
-  margin-left: -5px !important;
+  /* margin-right: -5px !important;
+  margin-left: -5px !important; */
   display: flex;
+  overflow-x: scroll;
+  -webkit-scrollbar: no-button;
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
+  scroll-behavior: smooth;
+  column-gap: 4px;
+  scroll-behavior: smooth;
 `;
 const TeaserContents = styled.li`
-  /* display: inline-block; */
-  /* width: 33.3333%; */
-  flex: 0 0 calc(33.3333% - 10px);
-
+  width: calc(33.3333% - 15px);
+  flex-shrink: 0;
   height: 258px;
   padding: 0 5px;
   list-style-type: none;
@@ -368,7 +416,7 @@ const Popup = styled.div`
 `;
 
 // 팝업 닫기 버튼 스타일
-const CloseButton = styled.button`
+const CloseBtn = styled.button`
   position: absolute;
   top: 18px;
   right: 20px;
@@ -418,7 +466,7 @@ const WrapSave = styled.div`
   margin-top: 15px;
 `;
 
-const SaveButton = styled.button`
+const SaveBtn = styled.button`
   background-color: rgb(255, 47, 110);
   height: 38px;
   color: rgb(255, 255, 255);
@@ -450,6 +498,10 @@ const MovieInfo = () => {
   const handleTextChange = (event) => {
     setCommentText(event.target.value); // 입력된 텍스트를 상태에 업데이트
   };
+
+  //좌우 스크롤 버튼
+  const teaserListRef = useRef(null);
+  const stillcutListRef = useRef(null);
   return (
     <>
       <Movie>
@@ -519,9 +571,7 @@ const MovieInfo = () => {
                   <UserReviewTitle>코멘트</UserReviewTitle>
                   <UserReviewCnt>userReviewCnt</UserReviewCnt>
                 </WrapUserReviewTitle>
-                <MoreButton to="/movie/${movieName}/comments">
-                  더보기
-                </MoreButton>
+                <MoreBtn to="/movie/${movieCode}/comments">더보기</MoreBtn>
               </UserReviewTitleContainer>
 
               <UserReviewContentsContainer>
@@ -567,26 +617,44 @@ const MovieInfo = () => {
             <Stillcut>
               <StillcutTitle>갤러리</StillcutTitle>
               <StillcutContentsContainer>
-                <WrapStillcutContents>
+                <LeftBtn onClick={() => scrollLeft(stillcutListRef)}>
+                  <LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></LeftBtnIcon>
+                </LeftBtn>
+                <WrapStillcutContents ref={stillcutListRef}>
                   <StillcutContents>stillcut</StillcutContents>
                   <StillcutContents>stillcut</StillcutContents>
                   <StillcutContents>stillcut</StillcutContents>
                   <StillcutContents>stillcut</StillcutContents>
                   <StillcutContents>stillcut</StillcutContents>
                 </WrapStillcutContents>
+                <RightBtn onClick={() => scrollRight(stillcutListRef)}>
+                  <RightBtnIcon
+                    src={arrowright}
+                    alt="오른쪽 이동"
+                  ></RightBtnIcon>
+                </RightBtn>
               </StillcutContentsContainer>
             </Stillcut>
 
             <Teaser>
               <TeaserTitle>동영상</TeaserTitle>
               <TeaserContentsContainer>
-                <WrapTeaserContents>
+                <LeftBtn onClick={() => scrollLeft(teaserListRef)}>
+                  <LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></LeftBtnIcon>
+                </LeftBtn>
+                <WrapTeaserContents ref={teaserListRef}>
                   <TeaserContents>teaser</TeaserContents>
                   <TeaserContents>teaser</TeaserContents>
                   <TeaserContents>teaser</TeaserContents>
                   <TeaserContents>teaser</TeaserContents>
                   <TeaserContents>teaser</TeaserContents>
                 </WrapTeaserContents>
+                <RightBtn onClick={() => scrollRight(teaserListRef)}>
+                  <RightBtnIcon
+                    src={arrowright}
+                    alt="오른쪽 이동"
+                  ></RightBtnIcon>
+                </RightBtn>
               </TeaserContentsContainer>
             </Teaser>
           </MovieContents>
@@ -596,7 +664,7 @@ const MovieInfo = () => {
       {popupOpen && (
         <Popup>
           {/* 팝업 닫기 버튼 */}
-          <CloseButton onClick={closePopup}>X 닫기</CloseButton>
+          <CloseBtn onClick={closePopup}>X 닫기</CloseBtn>
           {/* 팝업 내용 */}
           <CommentMenu>movieName</CommentMenu>
           <TextContainer>
@@ -606,12 +674,12 @@ const MovieInfo = () => {
             ></Textarea>
           </TextContainer>
           <WrapSave>
-            <SaveButton
+            <SaveBtn
               style={{ opacity: commentText ? 1 : 0.5 }}
               onClick={closePopup}
             >
               저장
-            </SaveButton>
+            </SaveBtn>
           </WrapSave>
         </Popup>
       )}

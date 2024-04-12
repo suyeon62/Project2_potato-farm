@@ -160,7 +160,7 @@ const MovieInfoComments = () => {
               </UserReviewContentsTitleContainer>
 
               <UserReviewContents>
-                <UserReviewContentsMain to="/comments/1">
+                <UserReviewContentsMain to="/playground/comments/1">
                   userReview
                   zazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
                   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
@@ -200,7 +200,7 @@ const MovieInfoComments = () => {
               </UserReviewContentsTitleContainer>
 
               <UserReviewContents>
-                <UserReviewContentsMain to="/comments/1">
+                <UserReviewContentsMain to="/playground/comments/1">
                   userReview
                   zazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
                   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz

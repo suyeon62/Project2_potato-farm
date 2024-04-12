@@ -9,11 +9,12 @@ import MvISaw from "./pages/MyPage/MvISaw";
 import MyComments from "./pages/MyPage/MyComments";
 import CommentsMain from "./pages/Comments/CommentsMain";
 import CommentDetails from "./pages/Comments/CommentDetails";
-import MovieInfo from "./pages/MovieInfo/MovieInfo";
+import MovieInfo from "./pages/Movie/MovieInfo";
 import MypageMain from "./pages/MyPage/MypageMain";
-import MovieInfoComments from "./pages/MovieInfo/MovieInfoComments";
+import MovieInfoComments from "./pages/Movie/MovieInfoComments";
 import DailyBoxoffice from "./pages/Boxoffice/DailyBoxoffice";
 import MonthlyBoxoffice from "./pages/Boxoffice/MonthlyBoxoffice";
+import MovieGenre from "./pages/Movie/MovieGenre";
 
 function App() {
   return (
@@ -25,13 +26,14 @@ function App() {
 
         {/* <Route path="/movie" element={<MovieInfo />} /> */}
         {/* <Route path="/movie/:genre" element={<MovieInfo />} /> */}
-        <Route path="/movie/:movieName" element={<MovieInfo />} />
+        <Route path="/:genre" element={<MovieGenre />} />
+        <Route path="/movie/:movieCode" element={<MovieInfo />} />
         <Route
-          path="/movie/:movieName/comments"
+          path="/movie/:movieCode/comments"
           element={<MovieInfoComments />}
         />
 
-        <Route path="/boxoffice/daily" element={<DailyBoxoffice />} />
+        <Route path="/boxoffice" element={<DailyBoxoffice />} />
         <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
 
         <Route path="/playground/comments" element={<CommentsMain />} />
