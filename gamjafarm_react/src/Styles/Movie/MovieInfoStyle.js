@@ -110,7 +110,7 @@ export const MovieContentsContainer = styled.div`
   padding: 30px 0 60px;
 `;
 export const LeftMovieContentsContainer = styled.div``;
-export const Poster = styled.div`
+export const Poster = styled.img`
   width: 280px;
   height: 400px;
   background-color: #ffffff7c;

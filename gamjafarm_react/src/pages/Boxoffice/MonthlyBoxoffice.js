@@ -49,7 +49,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -68,7 +68,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -87,7 +87,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -106,7 +106,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -125,7 +125,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -144,7 +144,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -163,7 +163,7 @@ const MonthlyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"

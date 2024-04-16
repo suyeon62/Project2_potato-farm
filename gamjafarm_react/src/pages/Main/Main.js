@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
@@ -6,23 +7,32 @@ import arrowleft from "../../images/arrow-left.png";
 import arrowright from "../../images/arrow-right.png";
 import { scrollLeft, scrollRight } from "../../Hook/scrollFunctions";
 import * as m from "../../Styles/Main/MainStyle";
+import { useParams } from "react-router-dom";
 
 const Main = () => {
   const movieListRef = useRef(null);
 
-  // const scrollLeft = () => {
-  //   movieListRef.current.scrollBy({
-  //     left: -1320, // 스크롤 이동 거리 조정
-  //     behavior: "smooth", // 부드러운 스크롤 적용
-  //   });
-  // };
+  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
+  //const [code, setCode] = useState("");
 
-  // const scrollRight = () => {
-  //   movieListRef.current.scrollBy({
-  //     left: 1320, // 스크롤 이동 거리 조정
-  //     behavior: "smooth", // 부드러운 스크롤 적용
-  //   });
-  // };
+  let { code } = useParams();
+  console.log("code>>>", code);
+
+  useEffect(() => {
+    const fetchDailyBoxoffice = async () => {
+      try {
+        const response = await axios
+          .get(`/home`)
+          .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
+        console.log("Test", response);
+        setMoviesData(response); // 받아온 데이터를 상태에 저장
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
+
+    fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
+  }, []);
 
   return (
     <>
@@ -252,43 +262,23 @@ const Main = () => {
                 <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={movieListRef}>
-                <m.Movie>
-                  <m.MovieRanking>
-                    <m.Ranking>ranking</m.Ranking>
-                  </m.MovieRanking>
-                  <m.PosterLink to="/movie/${movieCode}">
-                    <m.Poster
-                      to
-                      src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                      alt="poster"
-                    ></m.Poster>
-                  </m.PosterLink>
-                  <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-                  <m.MovieInfo>
-                    <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                    <m.MovieCountry>country</m.MovieCountry>
-                  </m.MovieInfo>
-                  <m.Rate>평균★ rate</m.Rate>
-                </m.Movie>
-
-                <m.Movie>
-                  <m.MovieRanking>
-                    <m.Ranking>ranking</m.Ranking>
-                  </m.MovieRanking>
-                  <m.PosterLink to="/movie/${movieCode}">
-                    <m.Poster
-                      to
-                      src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                      alt="poster"
-                    ></m.Poster>
-                  </m.PosterLink>
-                  <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-                  <m.MovieInfo>
-                    <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                    <m.MovieCountry>country</m.MovieCountry>
-                  </m.MovieInfo>
-                  <m.Rate>평균★ rate</m.Rate>
-                </m.Movie>
+                {moviesData &&
+                  moviesData.map((movie) => (
+                    <m.Movie>
+                      <m.MovieRanking>
+                        <m.Ranking>ranking</m.Ranking>
+                      </m.MovieRanking>
+                      <m.PosterLink to="/home/movie/detail/${code}">
+                        <m.Poster scr={movie.poster} alt="포스터"></m.Poster>
+                      </m.PosterLink>
+                      <m.MovieNameKor>{movie.name_kor}</m.MovieNameKor>
+                      <m.MovieInfo>
+                        <m.MovieReleaseAt>{movie.release_at}</m.MovieReleaseAt>
+                        <m.MovieCountry>{movie.country}</m.MovieCountry>
+                      </m.MovieInfo>
+                      <m.Rate>평균★ {movie.rate_avg}</m.Rate>
+                    </m.Movie>
+                  ))}
               </m.WrapMovie>
               <m.RightBtn onClick={() => scrollRight(movieListRef)}>
                 <m.RightBtnIcon

@@ -50,7 +50,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -69,7 +69,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -88,7 +88,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -106,26 +106,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -144,7 +125,26 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
+                <m.Poster
+                  to
+                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
+                  alt="poster"
+                ></m.Poster>
+              </m.PosterLink>
+              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
+              <m.MovieInfo>
+                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
+                <m.MovieCountry>country</m.MovieCountry>
+              </m.MovieInfo>
+              <m.Rate>평균★ rate</m.Rate>
+            </m.Movie>
+
+            <m.Movie>
+              <m.MovieRanking>
+                <m.Ranking>ranking</m.Ranking>
+              </m.MovieRanking>
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -162,7 +162,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
@@ -180,7 +180,7 @@ const DailyBoxoffice = () => {
               <m.MovieRanking>
                 <m.Ranking>ranking</m.Ranking>
               </m.MovieRanking>
-              <m.PosterLink to="/movie/${movieCode}">
+              <m.PosterLink to="/movie/${code}">
                 <m.Poster
                   to
                   src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"

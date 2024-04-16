@@ -22,12 +22,12 @@ function App() {
       <Headers className="headers"></Headers>
 
       <Routes>
-        <Route path="" element={<Main />} />
+        <Route path="/home" element={<Main />} />
 
         {/* <Route path="/movie" element={<MovieInfo />} /> */}
         {/* <Route path="/movie/:genre" element={<MovieInfo />} /> */}
         <Route path="/:genre" element={<MovieGenre />} />
-        <Route path="/movie/:movieCode" element={<MovieInfo />} />
+        <Route path="/home/movie/detail/:code" element={<MovieInfo />} />
         <Route
           path="/movie/:movieCode/comments"
           element={<MovieInfoComments />}

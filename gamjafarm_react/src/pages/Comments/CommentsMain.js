@@ -41,7 +41,7 @@ const CommentsMain = () => {
                 </m.BoxTitleContainer>
 
                 <m.BoxBodyContainer>
-                  <m.PosterLink to="/movie/${movieCode}">
+                  <m.PosterLink to="/movie/${code}">
                     <m.Poster
                       to
                       src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
