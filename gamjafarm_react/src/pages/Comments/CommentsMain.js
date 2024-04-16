@@ -1,186 +1,8 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
-import { Link } from "react-router-dom";
-
-const Comments = styled.div`
-  background-color: #212529;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
-
-const CommentsLayout = styled.div`
-  width: 640px;
-  padding: 22px 0;
-`;
-
-const CommentHeader = styled.div`
-  padding: 12px 0 14px;
-  font-size: 24px;
-  font-weight: 700;
-  color: rgb(41, 42, 50);
-  color: white;
-`;
-
-const ToggleButtons = styled.div`
-  padding-bottom: 16px;
-`;
-
-const Popular = styled.button`
-  /* background-color: rgb(255, 255, 255);
-  border: 1.6px solid rgb(231, 231, 231); */
-  background-color: ${({ active }) => (active ? "#ededed" : "rgb(20, 20, 20)")};
-  color: ${({ active }) => (active ? "inherit" : "#ededed")};
-  border: ${({ active }) =>
-    active ? "1.6px solid #ededed" : "1.6px solid rgb(20, 20, 20)"};
-
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-right: 8px;
-  cursor: pointer;
-`;
-
-const Latest = styled.button`
-  /* background-color: rgb(20, 20, 20);
-  color: rgb(255, 255, 255);
-  border: 1.6px solid rgb(20, 20, 20); */
-  background-color: ${({ active }) => (active ? "#ededed" : "rgb(20, 20, 20)")};
-  color: ${({ active }) => (active ? "inherit" : "#ededed")};
-  border: ${({ active }) =>
-    active ? "1.6px solid #ededed" : "1.6px solid rgb(20, 20, 20)"};
-
-  border-radius: 24px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-right: 8px;
-  cursor: pointer;
-`;
-
-const MainContents = styled.div`
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-`;
-
-const Box = styled.div`
-  border: 1px solid #ededed;
-  border-radius: 5px;
-  padding: 11px;
-  pad: 8px 0;
-  background-color: #00000090;
-`;
-
-const CommentBox = styled.div`
-  // text-decoration: none;
-  // color: inherit;
-`;
-
-const BoxTitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 12px;
-`;
-
-const BoxTitle = styled(Link)`
-  display: flex;
-  align-items: center;
-  color: rgb(20, 20, 20);
-  font-size: 13px;
-  text-decoration: none;
-`;
-
-const UserImage = styled.img`
-  border: 1.5 solid #ededed;
-  border-radius: 50%;
-  background-color: #b9babe;
-  margin-right: 8px;
-  width: 36px;
-  height: 36px;
-`;
-
-const UserName = styled.div`
-  font-size: 14px;
-  color: #ededed;
-`;
-
-const MovieRate = styled.div`
-  color: #ededed;
-`;
-
-const BoxBodyContainer = styled.div`
-  display: flex;
-  padding: 12px 0;
-`;
-
-const PosterLink = styled(Link)``;
-
-const Poster = styled.img`
-  width: 63px;
-  height: 93px;
-  margin-right: 8px;
-`;
-
-const MovieComment = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
-
-const MovieName = styled.div`
-  font-weight: 500;
-  font-size: 15px;
-  margin-bottom: 4px;
-  color: white;
-`;
-
-const UserComment = styled.div`
-  font-weight: 400;
-  font-size: 15px;
-  color: #ededed;
-`;
-
-const Cnt = styled.div`
-  display: flex;
-  color: #ededed;
-`;
-
-const LikeCnt = styled.div`
-  font-size: 13px;
-  margin-right: 12px;
-`;
-
-const UserCommentCommentCnt = styled.div`
-  font-size: 13px;
-  margin-right: 12px;
-`;
-
-const DividingLine = styled.div`
-  height: 1px;
-  background-color: rgb(237, 237, 237);
-  margin: 10px 0;
-  line-height: 18.4px;
-`;
-
-const ActiveArea = styled.div`
-  display: flex;
-`;
-
-const LikeImg = styled.img`
-  width: 24px;
-  margin-right: 20px;
-`;
-
-const UserCommentCommentImg = styled.img`
-  width: 24px;
-  margin-right: 20px;
-`;
+import * as m from "../../Styles/Comments/CommentsMainStyle";
 
 const CommentsMain = () => {
   const [isPopular, setIsPopular] = useState(true);
@@ -191,64 +13,67 @@ const CommentsMain = () => {
 
   return (
     <>
-      <Comments>
-        <CommentsLayout>
-          <CommentHeader>지금 뜨는 코멘트</CommentHeader>
+      <m.Comments>
+        <m.CommentsLayout>
+          <m.CommentHeader>지금 뜨는 코멘트</m.CommentHeader>
 
-          <ToggleButtons>
-            <Popular active={isPopular} onClick={handleToggle}>
+          <m.ToggleButtons>
+            <m.Popular active={isPopular} onClick={handleToggle}>
               인기
-            </Popular>
-            <Latest active={!isPopular} onClick={handleToggle}>
+            </m.Popular>
+            <m.Latest active={!isPopular} onClick={handleToggle}>
               최신
-            </Latest>
-          </ToggleButtons>
+            </m.Latest>
+          </m.ToggleButtons>
 
-          <MainContents>
-            <Box>
-              <CommentBox>
-                <BoxTitleContainer>
-                  <BoxTitle to="/mypage">
-                    <UserImage src={userImage} alt="유저 이미지"></UserImage>
-                    <UserName>userName</UserName>
-                  </BoxTitle>
-                  <MovieRate>userRate</MovieRate>
-                </BoxTitleContainer>
+          <m.MainContents>
+            <m.Box>
+              <m.CommentBox>
+                <m.BoxTitleContainer>
+                  <m.BoxTitle to="/mypage">
+                    <m.UserImage
+                      src={userImage}
+                      alt="유저 이미지"
+                    ></m.UserImage>
+                    <m.UserName>userName</m.UserName>
+                  </m.BoxTitle>
+                  <m.MovieRate>userRate</m.MovieRate>
+                </m.BoxTitleContainer>
 
-                <BoxBodyContainer>
-                  <PosterLink to="/movie/${movieCode}">
-                    <Poster
+                <m.BoxBodyContainer>
+                  <m.PosterLink to="/movie/${movieCode}">
+                    <m.Poster
                       to
                       src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
                       alt="poster"
-                    ></Poster>
-                  </PosterLink>
-                  <MovieComment to="/playground/comments/1">
-                    <MovieName>movieName</MovieName>
-                    <UserComment>userComment</UserComment>
-                  </MovieComment>
-                </BoxBodyContainer>
-                <Cnt>
-                  <LikeCnt>좋아요 likeCnt</LikeCnt>
-                  <UserCommentCommentCnt>
+                    ></m.Poster>
+                  </m.PosterLink>
+                  <m.MovieComment to="/playground/comments/1">
+                    <m.MovieName>movieName</m.MovieName>
+                    <m.UserComment>userComment</m.UserComment>
+                  </m.MovieComment>
+                </m.BoxBodyContainer>
+                <m.Cnt>
+                  <m.LikeCnt>좋아요 likeCnt</m.LikeCnt>
+                  <m.UserCommentCommentCnt>
                     댓글 userCommentCommentCnt
-                  </UserCommentCommentCnt>
-                </Cnt>
+                  </m.UserCommentCommentCnt>
+                </m.Cnt>
 
-                <DividingLine></DividingLine>
-                <ActiveArea>
-                  <LikeImg src={likeImage} alt="좋아요 이미지"></LikeImg>
+                <m.DividingLine></m.DividingLine>
+                <m.ActiveArea>
+                  <m.LikeImg src={likeImage} alt="좋아요 이미지"></m.LikeImg>
 
-                  <UserCommentCommentImg
+                  <m.UserCommentCommentImg
                     src={commentImage}
                     alt="댓글 이미지"
-                  ></UserCommentCommentImg>
-                </ActiveArea>
-              </CommentBox>
-            </Box>
-          </MainContents>
-        </CommentsLayout>
-      </Comments>
+                  ></m.UserCommentCommentImg>
+                </m.ActiveArea>
+              </m.CommentBox>
+            </m.Box>
+          </m.MainContents>
+        </m.CommentsLayout>
+      </m.Comments>
     </>
   );
 };
