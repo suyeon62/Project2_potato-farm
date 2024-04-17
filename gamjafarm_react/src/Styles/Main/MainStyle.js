@@ -41,7 +41,7 @@ export const CommentLink = styled(Link)`
 export const BoxContainer = styled.div`
   overflow: scroll;
   display: block;
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
 `;
 
 export const BoxList = styled.ul`

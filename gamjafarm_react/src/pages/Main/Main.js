@@ -11,21 +11,53 @@ import { useParams } from "react-router-dom";
 
 const Main = () => {
   const movieListRef = useRef(null);
-
-  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
-  //const [code, setCode] = useState("");
-
-  let { code } = useParams();
-  console.log("code>>>", code);
+  const [allMoviesData, setAllMoviesData] = useState([]);
+  const [domesticMoviesData, setDomesticMoviesData] = useState([]);
+  const [foreignMoviesData, setForeignMoviesData] = useState([]);
+  const [animationListData, setAnimationListData] = useState([]);
+  const [dailyboxofficeData, setDailyboxofficeData] = useState([]); // 영화 정보를 담을 상태
+  const [selectedcode, setSelectedCode] = useState("");
+  const [commentsData, setCommentsData] = useState([]);
 
   useEffect(() => {
     const fetchDailyBoxoffice = async () => {
       try {
-        const response = await axios
+        const [
+          domesticMoviesResponse,
+          foreignMoviesResponse,
+          animationListResponse,
+        ] = await Promise.all([
+          axios.get(`/home`).then((response) => response.data.domesticmovies),
+          axios.get(`/home`).then((response) => response.data.foreignmovies),
+          axios.get(`/home`).then((response) => response.data.animationList),
+        ]);
+
+        const domesticMoviesData = domesticMoviesResponse;
+        const foreignMoviesData = foreignMoviesResponse;
+        const animationListData = animationListResponse;
+        setDomesticMoviesData(domesticMoviesData);
+        setForeignMoviesData(foreignMoviesData);
+        setAnimationListData(animationListData);
+
+        const combinedMoviesData = [
+          ...domesticMoviesData,
+          ...foreignMoviesData,
+          ...animationListData,
+        ];
+        setAllMoviesData(combinedMoviesData);
+
+        const codes = combinedMoviesData.map((movie) => movie.code); // 영화 코드들을 추출
+        setSelectedCode(codes); // 영화 코드들을 상태에 저장
+
+        //박스오피스
+        const dailyboxofficeResponse = await axios
           .get(`/home`)
           .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
-        console.log("Test", response);
-        setMoviesData(response); // 받아온 데이터를 상태에 저장
+
+        setDailyboxofficeData(dailyboxofficeResponse); // 받아온 데이터를 상태에 저장
+
+        const commentResponse = await axios.get(`/review/list/1`);
+        setCommentsData(commentResponse.data.viewList);
       } catch (error) {
         console.error("Error fetching movie data:", error);
       }
@@ -34,6 +66,8 @@ const Main = () => {
     fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
   }, []);
 
+  // console.log("selectedCode>>>", selectedcode);
+
   return (
     <>
       <m.MainPage>
@@ -41,212 +75,79 @@ const Main = () => {
           <m.Comments>
             <m.CommentHeader>
               <m.CommentHeaderName>지금 뜨는 코멘트</m.CommentHeaderName>
-              <m.CommentLink to="/playground/comments">
+              <m.CommentLink to="/playground/comments/1">
                 더보기 {">"}
               </m.CommentLink>
             </m.CommentHeader>
 
             <m.BoxContainer>
               <m.BoxList>
-                <m.Box>
-                  <m.BoxContents>
-                    <m.CommentBox to="/playground/comments">
-                      <m.BoxTitle>
-                        <m.BoxTitleContainer>
-                          <m.UserImage
-                            src={userImage}
-                            alt="유저 이미지"
-                          ></m.UserImage>
-                          <m.UserName>userName</m.UserName>
-                        </m.BoxTitleContainer>
-                        <m.MovieRate>userRate</m.MovieRate>
-                      </m.BoxTitle>
+                {commentsData &&
+                  commentsData.map((comment, index) => {
+                    // commentsData에 있는 각 댓글의 movie_code와 일치하는 영화 정보를 찾습니다.
+                    const matchedMovie = allMoviesData.find(
+                      (movie) => movie.code === comment.movie_code
+                    );
+                    // 영화 정보가 있을 경우에만 해당 영화 정보를 이용하여 댓글과 영화 정보를 매칭합니다.
+                    if (matchedMovie) {
+                      return (
+                        <m.Box key={index}>
+                          <m.BoxContents>
+                            <m.CommentBox to="/playground/comments/1">
+                              <m.BoxTitle>
+                                <m.BoxTitleContainer>
+                                  <m.UserImage
+                                    src={userImage}
+                                    alt="유저 이미지"
+                                  />
+                                  <m.UserName>{comment.user_id}</m.UserName>
+                                </m.BoxTitleContainer>
+                                <m.MovieRate>{comment.userRate}</m.MovieRate>
+                              </m.BoxTitle>
 
-                      <m.BoxBodyContainer>
-                        <m.MoviePoster
-                          to
-                          src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
-                          alt="poster"
-                        ></m.MoviePoster>
-                        <m.MovieComment>
-                          <m.MovieName>movieName</m.MovieName>
-                          <m.UserComment>userComment</m.UserComment>
-                        </m.MovieComment>
-                      </m.BoxBodyContainer>
+                              <m.BoxBodyContainer>
+                                <m.MoviePoster
+                                  src={matchedMovie.poster}
+                                  alt="포스터"
+                                />
+                                <m.MovieComment>
+                                  <m.MovieName>
+                                    {matchedMovie.name_kor}
+                                  </m.MovieName>
+                                  <m.UserComment>
+                                    {comment.review}
+                                  </m.UserComment>
+                                </m.MovieComment>
+                              </m.BoxBodyContainer>
 
-                      <m.DividingLine></m.DividingLine>
-                      <m.ActiveArea>
-                        <m.Like>
-                          <m.LikeImg
-                            src={likeImage}
-                            alt="좋아요 이미지"
-                          ></m.LikeImg>
-                          <m.LikeCnt>likeCnt</m.LikeCnt>
-                        </m.Like>
+                              <m.DividingLine />
+                              <m.ActiveArea>
+                                <m.Like>
+                                  <m.LikeImg
+                                    src={likeImage}
+                                    alt="좋아요 이미지"
+                                  />
+                                  <m.LikeCnt>{comment.like_Cnt}</m.LikeCnt>
+                                </m.Like>
 
-                        <m.UserCommentComment>
-                          <m.UserCommentCommentImg
-                            src={commentImage}
-                            alt="댓글 이미지"
-                          ></m.UserCommentCommentImg>
-                          <m.UserCommentCommentCnt>
-                            userCommentCommentCnt
-                          </m.UserCommentCommentCnt>
-                        </m.UserCommentComment>
-                      </m.ActiveArea>
-                    </m.CommentBox>
-                  </m.BoxContents>
-                </m.Box>
-
-                <m.Box>
-                  <m.BoxContents>
-                    <m.CommentBox to="/playground/comments">
-                      <m.BoxTitle>
-                        <m.BoxTitleContainer>
-                          <m.UserImage
-                            src={userImage}
-                            alt="유저 이미지"
-                          ></m.UserImage>
-                          <m.UserName>userName</m.UserName>
-                        </m.BoxTitleContainer>
-                        <m.MovieRate>userRate</m.MovieRate>
-                      </m.BoxTitle>
-
-                      <m.BoxBodyContainer>
-                        <m.MoviePoster
-                          to
-                          src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
-                          alt="poster"
-                        ></m.MoviePoster>
-                        <m.MovieComment>
-                          <m.MovieName>movieName</m.MovieName>
-                          <m.UserComment>userComment</m.UserComment>
-                        </m.MovieComment>
-                      </m.BoxBodyContainer>
-
-                      <m.DividingLine></m.DividingLine>
-                      <m.ActiveArea>
-                        <m.Like>
-                          <m.LikeImg
-                            src={likeImage}
-                            alt="좋아요 이미지"
-                          ></m.LikeImg>
-                          <m.LikeCnt>likeCnt</m.LikeCnt>
-                        </m.Like>
-
-                        <m.UserCommentComment>
-                          <m.UserCommentCommentImg
-                            src={commentImage}
-                            alt="댓글 이미지"
-                          ></m.UserCommentCommentImg>
-                          <m.UserCommentCommentCnt>
-                            userCommentCommentCnt
-                          </m.UserCommentCommentCnt>
-                        </m.UserCommentComment>
-                      </m.ActiveArea>
-                    </m.CommentBox>
-                  </m.BoxContents>
-                </m.Box>
-
-                <m.Box>
-                  <m.BoxContents>
-                    <m.CommentBox to="/playground/comments">
-                      <m.BoxTitle>
-                        <m.BoxTitleContainer>
-                          <m.UserImage
-                            src={userImage}
-                            alt="유저 이미지"
-                          ></m.UserImage>
-                          <m.UserName>userName</m.UserName>
-                        </m.BoxTitleContainer>
-                        <m.MovieRate>userRate</m.MovieRate>
-                      </m.BoxTitle>
-
-                      <m.BoxBodyContainer>
-                        <m.MoviePoster
-                          to
-                          src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
-                          alt="poster"
-                        ></m.MoviePoster>
-                        <m.MovieComment>
-                          <m.MovieName>movieName</m.MovieName>
-                          <m.UserComment>userComment</m.UserComment>
-                        </m.MovieComment>
-                      </m.BoxBodyContainer>
-
-                      <m.DividingLine></m.DividingLine>
-                      <m.ActiveArea>
-                        <m.Like>
-                          <m.LikeImg
-                            src={likeImage}
-                            alt="좋아요 이미지"
-                          ></m.LikeImg>
-                          <m.LikeCnt>likeCnt</m.LikeCnt>
-                        </m.Like>
-
-                        <m.UserCommentComment>
-                          <m.UserCommentCommentImg
-                            src={commentImage}
-                            alt="댓글 이미지"
-                          ></m.UserCommentCommentImg>
-                          <m.UserCommentCommentCnt>
-                            userCommentCommentCnt
-                          </m.UserCommentCommentCnt>
-                        </m.UserCommentComment>
-                      </m.ActiveArea>
-                    </m.CommentBox>
-                  </m.BoxContents>
-                </m.Box>
-
-                <m.Box>
-                  <m.BoxContents>
-                    <m.CommentBox to="/playground/comments">
-                      <m.BoxTitle>
-                        <m.BoxTitleContainer>
-                          <m.UserImage
-                            src={userImage}
-                            alt="유저 이미지"
-                          ></m.UserImage>
-                          <m.UserName>userName</m.UserName>
-                        </m.BoxTitleContainer>
-                        <m.MovieRate>userRate</m.MovieRate>
-                      </m.BoxTitle>
-
-                      <m.BoxBodyContainer>
-                        <m.MoviePoster
-                          to
-                          src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
-                          alt="poster"
-                        ></m.MoviePoster>
-                        <m.MovieComment>
-                          <m.MovieName>movieName</m.MovieName>
-                          <m.UserComment>userComment</m.UserComment>
-                        </m.MovieComment>
-                      </m.BoxBodyContainer>
-
-                      <m.DividingLine></m.DividingLine>
-                      <m.ActiveArea>
-                        <m.Like>
-                          <m.LikeImg
-                            src={likeImage}
-                            alt="좋아요 이미지"
-                          ></m.LikeImg>
-                          <m.LikeCnt>likeCnt</m.LikeCnt>
-                        </m.Like>
-
-                        <m.UserCommentComment>
-                          <m.UserCommentCommentImg
-                            src={commentImage}
-                            alt="댓글 이미지"
-                          ></m.UserCommentCommentImg>
-                          <m.UserCommentCommentCnt>
-                            userCommentCommentCnt
-                          </m.UserCommentCommentCnt>
-                        </m.UserCommentComment>
-                      </m.ActiveArea>
-                    </m.CommentBox>
-                  </m.BoxContents>
-                </m.Box>
+                                <m.UserCommentComment>
+                                  <m.UserCommentCommentImg
+                                    src={commentImage}
+                                    alt="댓글 이미지"
+                                  />
+                                  <m.UserCommentCommentCnt>
+                                    {comment.userCommentCommentCnt}
+                                  </m.UserCommentCommentCnt>
+                                </m.UserCommentComment>
+                              </m.ActiveArea>
+                            </m.CommentBox>
+                          </m.BoxContents>
+                        </m.Box>
+                      );
+                    } else {
+                      return null; // 영화 정보가 없을 경우 해당 댓글은 표시하지 않습니다.
+                    }
+                  })}
               </m.BoxList>
             </m.BoxContainer>
           </m.Comments>
@@ -262,18 +163,23 @@ const Main = () => {
                 <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={movieListRef}>
-                {moviesData &&
-                  moviesData.map((movie) => (
-                    <m.Movie>
+                {dailyboxofficeData &&
+                  dailyboxofficeData.map((movie, index) => (
+                    <m.Movie key={movie.code}>
                       <m.MovieRanking>
-                        <m.Ranking>ranking</m.Ranking>
+                        <m.Ranking>{movie.ranking}</m.Ranking>
                       </m.MovieRanking>
-                      <m.PosterLink to="/home/movie/detail/${code}">
-                        <m.Poster scr={movie.poster} alt="포스터"></m.Poster>
+                      <m.PosterLink to={`/movie/${selectedcode[index]}`}>
+                        <m.Poster src={movie.poster} alt="포스터"></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{movie.name_kor}</m.MovieNameKor>
                       <m.MovieInfo>
-                        <m.MovieReleaseAt>{movie.release_at}</m.MovieReleaseAt>
+                        <m.MovieReleaseAt>
+                          {movie.release_at.slice(
+                            0,
+                            movie.release_at.indexOf("T")
+                          )}
+                        </m.MovieReleaseAt>
                         <m.MovieCountry>{movie.country}</m.MovieCountry>
                       </m.MovieInfo>
                       <m.Rate>평균★ {movie.rate_avg}</m.Rate>

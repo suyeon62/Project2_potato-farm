@@ -1,12 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
+import axios from "axios";
 import commentImage from "../../images/commentImage.png";
 import graystar from "../../images/graystar.png";
 import commentIcon from "../../images/commentIcon.png";
 import * as m from "../../Styles/Comments/CommentDetailsStyle";
 
 const CommentDetails = () => {
+  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
+  const [selectedMoviecode, setselectedMoviecode] = useState("");
+  const [commentsData, setCommentsData] = useState([]);
+
+  useEffect(() => {
+    const fetchDailyBoxoffice = async () => {
+      try {
+        const movieResponse = await axios
+          .get(`/home`)
+          .then((response) => response.data); // 코드로부터 영화 정보 가져오기
+        console.log("Test>", movieResponse);
+        setMoviesData(movieResponse); // 받아온 데이터를 상태에 저장
+
+        const commentResponse = await axios
+          .get(`/review/list/1`)
+          .then((response) => response.data.viewList);
+        const movieCodes = commentResponse.map((comment) => comment.movie_code); // 영화 코드들을 추출
+        console.log("mvcode", movieCodes);
+        setselectedMoviecode(movieCodes);
+        setCommentsData(commentResponse);
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
+
+    fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
+  }, []);
+
   const [popupOpen, setPopupOpen] = useState(false);
 
   // 팝업 열기 함수
@@ -43,7 +72,7 @@ const CommentDetails = () => {
               </m.MovieRate>
             </m.BoxTitle>
 
-            <m.PosterLink to="/movie/${code}">
+            <m.PosterLink to={`/movie/${selectedMoviecode}`}>
               <m.Poster
                 to
                 src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88092/88092_1000.jpg"
@@ -52,10 +81,15 @@ const CommentDetails = () => {
             </m.PosterLink>
           </m.BoxTitleContainer>
 
-          <m.UserComment>userComment</m.UserComment>
+          <m.UserComment>{commentsData.review}</m.UserComment>
 
           <m.Cnt>
-            <m.LikeCnt>좋아요 likeCnt</m.LikeCnt>
+            <m.LikeCnt>
+              좋아요{" "}
+              {commentsData !== null && commentsData.hasOwnProperty("like_Cnt")
+                ? commentsData.like_Cnt
+                : "0"}
+            </m.LikeCnt>
             <m.UserCommentCommentCnt>
               댓글 userCommentCommentCnt
             </m.UserCommentCommentCnt>

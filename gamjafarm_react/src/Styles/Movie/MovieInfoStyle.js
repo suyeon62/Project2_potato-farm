@@ -23,12 +23,20 @@ export const MovieInfoContainer = styled.div`
   border-bottom: 1px solid white;
 `;
 
-export const MovieBackgroundImage = styled.div`
+export const MovieBackgroundImg = styled.div`
+  height: 100%;
+  background-image: url(${(props) => props.imageUrl});
+  /* background-position: center; */
+  background-size: cover;
+  background-repeat: no-repeat;
+`;
+
+export const MovieBackground = styled.div`
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  background: url(https://an2-img.amz.wtchn.net/image/v2/kL7WfkLDBmHsazMm3ofR6Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1Ua3lNSGd4TURnd2NUZ3dJbDBzSW5BaU9pSXZkakl2YzNSdmNtVXZhVzFoWjJVdk1UazRNamMwTmpZeE5UWXpORGN6SW4wLlNpRFZ6WVMyUXBfNEhKZFBoblBEZUZxZ2lEaFlVdTdCb3NTRE04VDZHams)
-    center center / cover no-repeat;
+  /* overflow: hidden; */
+  /* background: url(https://an2-img.amz.wtchn.net/image/v2/kL7WfkLDBmHsazMm3ofR6Q.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk1Ua3lNSGd4TURnd2NUZ3dJbDBzSW5BaU9pSXZkakl2YzNSdmNtVXZhVzFoWjJVdk1UazRNamMwTmpZeE5UWXpORGN6SW4wLlNpRFZ6WVMyUXBfNEhKZFBoblBEZUZxZ2lEaFlVdTdCb3NTRE04VDZHams)     center center / cover no-repeat;*/
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -134,7 +142,14 @@ export const UserComment = styled.div`
   cursor: pointer;
 `;
 export const BottomContents = styled.div``;
-export const MoviePlot = styled.div``;
+export const MoviePlot = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  margin: 20px 0 30px;
+  line-height: 22px;
+  /* white-space: pre-line */
+  /* white-space: pre-wrap; */
+`;
 export const MoviePeople = styled.div`
   margin-top: 60px;
   /* height: 276px; */
@@ -145,9 +160,11 @@ export const MoviePeopleTitle = styled.div`
   margin-bottom: 20px;
 `;
 
-export const MoviePeopleName = styled.div``;
-export const MovieDirector = styled.div``;
-export const MovieActor = styled.div``;
+export const MoviePeopleName = styled.ul`
+  padding-left: 22px;
+`;
+export const MovieDirector = styled.li``;
+export const MovieActor = styled.li``;
 export const UserReview = styled.div`
   margin-top: 60px;
 `;
@@ -278,38 +295,6 @@ export const UserCommentCommentCnt = styled.div`
   font-size: 14px;
 `;
 
-export const LeftBtn = styled.div`
-  position: absolute;
-  left: -10px;
-  top: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 68px;
-  height: 24px;
-  background-image: url("gradientRight.svg");
-  cursor: pointer;
-  margin-left: -32px;
-`;
-
-export const LeftBtnIcon = styled.img``;
-
-export const RightBtn = styled.div`
-  position: absolute;
-  right: -10px;
-  top: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 68px;
-  height: 24px;
-  background-image: url("gradientRight.svg");
-  cursor: pointer;
-  margin-right: -32px;
-`;
-
-export const RightBtnIcon = styled.img``;
-
 export const Stillcut = styled.div`
   margin-top: 60px;
 `;
@@ -321,7 +306,7 @@ export const StillcutTitle = styled.div`
 
 export const StillcutContentsContainer = styled.div`
   position: relative;
-  padding: 0 5px;
+  /* padding: 0 5px; */
   height: 320px;
 `;
 
@@ -329,26 +314,28 @@ export const WrapStillcutContents = styled.ul`
   padding: 0;
   margin-top: 5px;
   margin-bottom: 25px;
-  /* margin-right: -5px !important;
-  margin-left: -5px !important; */
   display: flex;
   overflow-x: scroll;
   -webkit-scrollbar: no-button;
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
-  } */
+  }
   scroll-behavior: smooth;
   column-gap: 4px;
   scroll-behavior: smooth;
 `;
 export const StillcutContents = styled.li`
-  width: calc(33.3333% - 15px);
-  flex-shrink: 0;
+  width: calc(33.3333%);
   height: 258px;
   padding: 0 5px;
   list-style-type: none;
   border: 1px solid black;
   border-radius: 3px;
+  background-image: url(${(props) => props.imageUrl}),
+    linear-gradient(black, black);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 export const Teaser = styled.div`
   margin-top: 60px;
@@ -362,7 +349,7 @@ export const TeaserTitle = styled.div`
 
 export const TeaserContentsContainer = styled.div`
   position: relative;
-  padding: 0 5px;
+  /* padding: 0 5px; */
   height: 320px;
 `;
 
@@ -370,26 +357,39 @@ export const WrapTeaserContents = styled.ul`
   padding: 0;
   margin-top: 5px;
   margin-bottom: 25px;
-  /* margin-right: -5px !important;
-  margin-left: -5px !important; */
   display: flex;
   overflow-x: scroll;
   -webkit-scrollbar: no-button;
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
-  } */
+  }
   scroll-behavior: smooth;
   column-gap: 4px;
   scroll-behavior: smooth;
 `;
+
+export const TeaserLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 export const TeaserContents = styled.li`
-  width: calc(33.3333% - 15px);
+  width: 440px;
   flex-shrink: 0;
   height: 258px;
   padding: 0 5px;
   list-style-type: none;
   border: 1px solid black;
   border-radius: 3px;
+
+  background-color: black;
+  text-align: center;
+  align-content: center;
+  font-size: 25px;
+
+  /* background-image: url(${(props) => props.imageUrl}); */
+  /* background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; */
 `;
 
 // 팝업 창 스타일
