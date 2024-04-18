@@ -11,51 +11,57 @@ import { useParams } from "react-router-dom";
 
 const Main = () => {
   const movieListRef = useRef(null);
+  const domesticMovieListRef = useRef(null);
+  const foreignMovieListRef = useRef(null);
+  const aniListRef = useRef(null);
   const [allMoviesData, setAllMoviesData] = useState([]);
   const [domesticMoviesData, setDomesticMoviesData] = useState([]);
   const [foreignMoviesData, setForeignMoviesData] = useState([]);
   const [animationListData, setAnimationListData] = useState([]);
-  const [dailyboxofficeData, setDailyboxofficeData] = useState([]); // 영화 정보를 담을 상태
+  const [dailyboxofficeData, setDailyboxofficeData] = useState([]);
   const [selectedcode, setSelectedCode] = useState("");
+
   const [commentsData, setCommentsData] = useState([]);
 
   useEffect(() => {
     const fetchDailyBoxoffice = async () => {
       try {
         const [
+          dailyboxofficeResponse,
           domesticMoviesResponse,
           foreignMoviesResponse,
           animationListResponse,
         ] = await Promise.all([
+          axios.get(`/home`).then((response) => response.data.dailyboxoffice),
           axios.get(`/home`).then((response) => response.data.domesticmovies),
           axios.get(`/home`).then((response) => response.data.foreignmovies),
           axios.get(`/home`).then((response) => response.data.animationList),
         ]);
 
+        const dailyboxofficeData = dailyboxofficeResponse;
         const domesticMoviesData = domesticMoviesResponse;
         const foreignMoviesData = foreignMoviesResponse;
         const animationListData = animationListResponse;
+        setDailyboxofficeData(dailyboxofficeData);
         setDomesticMoviesData(domesticMoviesData);
         setForeignMoviesData(foreignMoviesData);
         setAnimationListData(animationListData);
 
         const combinedMoviesData = [
+          ...dailyboxofficeData,
           ...domesticMoviesData,
           ...foreignMoviesData,
           ...animationListData,
         ];
         setAllMoviesData(combinedMoviesData);
 
-        const codes = combinedMoviesData.map((movie) => movie.code); // 영화 코드들을 추출
-        setSelectedCode(codes); // 영화 코드들을 상태에 저장
+        const codes = combinedMoviesData.map((movie) => movie.code);
+        setSelectedCode(codes);
 
-        //박스오피스
-        const dailyboxofficeResponse = await axios
-          .get(`/home`)
-          .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
+        // const codes = combinedMoviesData.map((movie) => movie.code);
+        // setSelectedCode(codes);
 
-        setDailyboxofficeData(dailyboxofficeResponse); // 받아온 데이터를 상태에 저장
-
+        //코멘트
         const commentResponse = await axios.get(`/review/list/1`);
         setCommentsData(commentResponse.data.viewList);
       } catch (error) {
@@ -66,7 +72,14 @@ const Main = () => {
     fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
   }, []);
 
-  // console.log("selectedCode>>>", selectedcode);
+  const getMovieInfo = (commentMovieCode) => {
+    const matchedMovie = allMoviesData.find(
+      (movie) => movie.code === commentMovieCode
+    );
+    return matchedMovie
+      ? { name_kor: matchedMovie.name_kor, poster: matchedMovie.poster }
+      : null;
+  };
 
   return (
     <>
@@ -82,76 +95,60 @@ const Main = () => {
 
             <m.BoxContainer>
               <m.BoxList>
-                {commentsData &&
-                  commentsData.map((comment, index) => {
-                    // commentsData에 있는 각 댓글의 movie_code와 일치하는 영화 정보를 찾습니다.
-                    const matchedMovie = allMoviesData.find(
-                      (movie) => movie.code === comment.movie_code
-                    );
-                    // 영화 정보가 있을 경우에만 해당 영화 정보를 이용하여 댓글과 영화 정보를 매칭합니다.
-                    if (matchedMovie) {
-                      return (
-                        <m.Box key={index}>
-                          <m.BoxContents>
-                            <m.CommentBox to="/playground/comments/1">
-                              <m.BoxTitle>
-                                <m.BoxTitleContainer>
-                                  <m.UserImage
-                                    src={userImage}
-                                    alt="유저 이미지"
-                                  />
-                                  <m.UserName>{comment.user_id}</m.UserName>
-                                </m.BoxTitleContainer>
-                                <m.MovieRate>{comment.userRate}</m.MovieRate>
-                              </m.BoxTitle>
+                {commentsData.map((comment, index) => {
+                  const movieInfo = getMovieInfo(comment.movie_code);
+                  return (
+                    <m.Box key={index}>
+                      <m.BoxContents>
+                        <m.CommentBox to="/playground/comments/1">
+                          <m.BoxTitle>
+                            <m.BoxTitleContainer>
+                              <m.UserImage src={userImage} alt="유저 이미지" />
+                              <m.UserName>{comment.user_id}</m.UserName>
+                            </m.BoxTitleContainer>
+                            <m.MovieRate>{comment.userRate}</m.MovieRate>
+                          </m.BoxTitle>
 
-                              <m.BoxBodyContainer>
-                                <m.MoviePoster
-                                  src={matchedMovie.poster}
-                                  alt="포스터"
-                                />
-                                <m.MovieComment>
-                                  <m.MovieName>
-                                    {matchedMovie.name_kor}
-                                  </m.MovieName>
-                                  <m.UserComment>
-                                    {comment.review}
-                                  </m.UserComment>
-                                </m.MovieComment>
-                              </m.BoxBodyContainer>
+                          <m.BoxBodyContainer>
+                            <m.MoviePoster
+                              src={movieInfo ? movieInfo.poster : ""}
+                              alt="포스터"
+                            />
+                            <m.MovieComment>
+                              <m.MovieName>
+                                {movieInfo ? movieInfo.name_kor : ""}
+                              </m.MovieName>
+                              <m.UserComment>{comment.review}</m.UserComment>
+                            </m.MovieComment>
+                          </m.BoxBodyContainer>
 
-                              <m.DividingLine />
-                              <m.ActiveArea>
-                                <m.Like>
-                                  <m.LikeImg
-                                    src={likeImage}
-                                    alt="좋아요 이미지"
-                                  />
-                                  <m.LikeCnt>{comment.like_Cnt}</m.LikeCnt>
-                                </m.Like>
+                          <m.DividingLine />
+                          <m.ActiveArea>
+                            <m.Like>
+                              <m.LikeImg src={likeImage} alt="좋아요 이미지" />
+                              <m.LikeCnt>{comment.like_Cnt}</m.LikeCnt>
+                            </m.Like>
 
-                                <m.UserCommentComment>
-                                  <m.UserCommentCommentImg
-                                    src={commentImage}
-                                    alt="댓글 이미지"
-                                  />
-                                  <m.UserCommentCommentCnt>
-                                    {comment.userCommentCommentCnt}
-                                  </m.UserCommentCommentCnt>
-                                </m.UserCommentComment>
-                              </m.ActiveArea>
-                            </m.CommentBox>
-                          </m.BoxContents>
-                        </m.Box>
-                      );
-                    } else {
-                      return null; // 영화 정보가 없을 경우 해당 댓글은 표시하지 않습니다.
-                    }
-                  })}
+                            <m.UserCommentComment>
+                              <m.UserCommentCommentImg
+                                src={commentImage}
+                                alt="댓글 이미지"
+                              />
+                              <m.UserCommentCommentCnt>
+                                {comment.userCommentCommentCnt}
+                              </m.UserCommentCommentCnt>
+                            </m.UserCommentComment>
+                          </m.ActiveArea>
+                        </m.CommentBox>
+                      </m.BoxContents>
+                    </m.Box>
+                  );
+                })}
               </m.BoxList>
             </m.BoxContainer>
           </m.Comments>
 
+          {/* 박스오피스 */}
           <m.Boxoffice>
             <m.BoxofficeHeader>
               <m.BoxofficeHeaderName>박스오피스 순위</m.BoxofficeHeaderName>
@@ -169,7 +166,7 @@ const Main = () => {
                       <m.MovieRanking>
                         <m.Ranking>{movie.ranking}</m.Ranking>
                       </m.MovieRanking>
-                      <m.PosterLink to={`/movie/${selectedcode[index]}`}>
+                      <m.PosterLink to={`/movie/${movie.code}`}>
                         <m.Poster src={movie.poster} alt="포스터"></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{movie.name_kor}</m.MovieNameKor>
@@ -187,6 +184,123 @@ const Main = () => {
                   ))}
               </m.WrapMovie>
               <m.RightBtn onClick={() => scrollRight(movieListRef)}>
+                <m.RightBtnIcon
+                  src={arrowright}
+                  alt="오른쪽 이동"
+                ></m.RightBtnIcon>
+              </m.RightBtn>
+            </m.MovieContainer>
+          </m.Boxoffice>
+
+          {/* 국내영화 */}
+          <m.Boxoffice>
+            <m.BoxofficeHeader>
+              <m.BoxofficeHeaderName>국내 영화</m.BoxofficeHeaderName>
+            </m.BoxofficeHeader>
+
+            <m.MovieContainer>
+              <m.LeftBtn onClick={() => scrollLeft(domesticMovieListRef)}>
+                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+              </m.LeftBtn>
+              <m.WrapMovie ref={domesticMovieListRef}>
+                {domesticMoviesData &&
+                  domesticMoviesData.map((domestic, index) => (
+                    <m.Movie key={domestic.code}>
+                      <m.PosterLink to={`/movie/${domestic.code}`}>
+                        <m.Poster src={domestic.poster} alt="포스터"></m.Poster>
+                      </m.PosterLink>
+                      <m.MovieNameKor>{domestic.name_kor}</m.MovieNameKor>
+                      <m.MovieInfo>
+                        <m.MovieReleaseAt>
+                          {domestic.release_at.slice(
+                            0,
+                            domestic.release_at.indexOf("T")
+                          )}
+                        </m.MovieReleaseAt>
+                        <m.MovieCountry>{domestic.country}</m.MovieCountry>
+                      </m.MovieInfo>
+                      <m.Rate>평균★ {domestic.rate_avg}</m.Rate>
+                    </m.Movie>
+                  ))}
+              </m.WrapMovie>
+              <m.RightBtn onClick={() => scrollRight(domesticMovieListRef)}>
+                <m.RightBtnIcon
+                  src={arrowright}
+                  alt="오른쪽 이동"
+                ></m.RightBtnIcon>
+              </m.RightBtn>
+            </m.MovieContainer>
+          </m.Boxoffice>
+
+          {/* 해외영화 */}
+          <m.Boxoffice>
+            <m.BoxofficeHeader>
+              <m.BoxofficeHeaderName>해외 영화</m.BoxofficeHeaderName>
+            </m.BoxofficeHeader>
+
+            <m.MovieContainer>
+              <m.LeftBtn onClick={() => scrollLeft(foreignMovieListRef)}>
+                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+              </m.LeftBtn>
+              <m.WrapMovie ref={foreignMovieListRef}>
+                {foreignMoviesData &&
+                  foreignMoviesData.map((foreign, index) => (
+                    <m.Movie key={foreign.code}>
+                      <m.PosterLink to={`/movie/${foreign.code}`}>
+                        <m.Poster src={foreign.poster} alt="포스터"></m.Poster>
+                      </m.PosterLink>
+                      <m.MovieNameKor>{foreign.name_kor}</m.MovieNameKor>
+                      <m.MovieInfo>
+                        <m.MovieReleaseAt>
+                          {foreign.release_at.slice(
+                            0,
+                            foreign.release_at.indexOf("T")
+                          )}
+                        </m.MovieReleaseAt>
+                        <m.MovieCountry>{foreign.country}</m.MovieCountry>
+                      </m.MovieInfo>
+                      <m.Rate>평균★ {foreign.rate_avg}</m.Rate>
+                    </m.Movie>
+                  ))}
+              </m.WrapMovie>
+              <m.RightBtn onClick={() => scrollRight(foreignMovieListRef)}>
+                <m.RightBtnIcon
+                  src={arrowright}
+                  alt="오른쪽 이동"
+                ></m.RightBtnIcon>
+              </m.RightBtn>
+            </m.MovieContainer>
+          </m.Boxoffice>
+
+          {/* 애니메이션 */}
+          <m.Boxoffice>
+            <m.BoxofficeHeader>
+              <m.BoxofficeHeaderName>애니메이션</m.BoxofficeHeaderName>
+            </m.BoxofficeHeader>
+
+            <m.MovieContainer>
+              <m.LeftBtn onClick={() => scrollLeft(aniListRef)}>
+                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+              </m.LeftBtn>
+              <m.WrapMovie ref={aniListRef}>
+                {animationListData &&
+                  animationListData.map((ani, index) => (
+                    <m.Movie key={ani.code}>
+                      <m.PosterLink to={`/movie/${ani.code}`}>
+                        <m.Poster src={ani.poster} alt="포스터"></m.Poster>
+                      </m.PosterLink>
+                      <m.MovieNameKor>{ani.name_kor}</m.MovieNameKor>
+                      <m.MovieInfo>
+                        <m.MovieReleaseAt>
+                          {ani.release_at.slice(0, ani.release_at.indexOf("T"))}
+                        </m.MovieReleaseAt>
+                        <m.MovieCountry>{ani.country}</m.MovieCountry>
+                      </m.MovieInfo>
+                      <m.Rate>평균★ {ani.rate_avg}</m.Rate>
+                    </m.Movie>
+                  ))}
+              </m.WrapMovie>
+              <m.RightBtn onClick={() => scrollRight(aniListRef)}>
                 <m.RightBtnIcon
                   src={arrowright}
                   alt="오른쪽 이동"

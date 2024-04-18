@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import prevButton from "../../images/arrow-left.png";
 import nextButton from "../../images/arrow-right.png";
 import checkedButton from "../../images/checked.png";
 import * as m from "../../Styles/Boxoffice/DailyBoxofficeStyle";
 
 const DailyBoxoffice = () => {
+  const [dailyboxofficeData, setDailyboxofficeData] = useState([]);
+
+  useEffect(() => {
+    const fetchDailyBoxoffice = async () => {
+      try {
+        const dailyboxofficeResponse = await axios
+          .get(`/home`)
+          .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
+
+        setDailyboxofficeData(dailyboxofficeResponse); // 받아온 데이터를 상태에 저장
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
+
+    fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
+  }, []);
   return (
     <>
       <m.DailyBoxofficeContainer>
@@ -46,154 +64,26 @@ const DailyBoxoffice = () => {
             </m.NextButton>
           </m.DailyBoxofficeDate>
           <m.WrapMovie>
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
-            <m.Movie>
-              <m.MovieRanking>
-                <m.Ranking>ranking</m.Ranking>
-              </m.MovieRanking>
-              <m.PosterLink to="/movie/${code}">
-                <m.Poster
-                  to
-                  src="https://an2-img.amz.wtchn.net/image/v2/XqWZa9ZYN4q5Zh8zpIGeyA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJMk5UTXhNalk1T0RReE5ESTBPU0o5LmhVS3lCcVdremR3SS1FNHlVTmFNeFdMb0tsNGZNZkZ6b3VGX3J2c0pLZzA"
-                  alt="poster"
-                ></m.Poster>
-              </m.PosterLink>
-              <m.MovieNameKor>movieNameKor</m.MovieNameKor>
-              <m.MovieInfo>
-                <m.MovieReleaseAt>releaseAt</m.MovieReleaseAt>
-                <m.MovieCountry>country</m.MovieCountry>
-              </m.MovieInfo>
-              <m.Rate>평균★ rate</m.Rate>
-            </m.Movie>
+            {dailyboxofficeData &&
+              dailyboxofficeData.map((movie, index) => (
+                <m.Movie>
+                  <m.MovieRanking>
+                    <m.Ranking>{movie.ranking}</m.Ranking>
+                  </m.MovieRanking>
+                  <m.PosterLink to={`/movie/${movie.code}`}>
+                    <m.Poster to src={movie.poster} alt="poster"></m.Poster>
+                  </m.PosterLink>
+                  <m.MovieNameKor>{movie.name_kor}</m.MovieNameKor>
+                  <m.MovieInfo>
+                    <m.MovieReleaseAt>
+                      {" "}
+                      {movie.release_at.slice(0, movie.release_at.indexOf("T"))}
+                    </m.MovieReleaseAt>
+                    <m.MovieCountry>{movie.country}</m.MovieCountry>
+                  </m.MovieInfo>
+                  <m.Rate>평균★ {movie.rate_avg}</m.Rate>
+                </m.Movie>
+              ))}
           </m.WrapMovie>
         </m.WrapDailyBoxoffice>
       </m.DailyBoxofficeContainer>

@@ -14,7 +14,7 @@ const MovieInfo = () => {
   const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
   //const [code, setCode] = useState("");
 
-  let { code } = useParams();
+  const { code } = useParams();
   console.log("code>>>>", code);
 
   useEffect(() => {

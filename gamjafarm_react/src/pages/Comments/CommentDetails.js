@@ -6,34 +6,49 @@ import commentImage from "../../images/commentImage.png";
 import graystar from "../../images/graystar.png";
 import commentIcon from "../../images/commentIcon.png";
 import * as m from "../../Styles/Comments/CommentDetailsStyle";
+import { useParams } from "react-router-dom";
 
 const CommentDetails = () => {
-  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
+  const [allMoviesData, setAllMoviesData] = useState([]);
+  const [domesticMoviesData, setDomesticMoviesData] = useState([]);
+  const [foreignMoviesData, setForeignMoviesData] = useState([]);
+  const [animationListData, setAnimationListData] = useState([]);
+  const [selectedcode, setSelectedCode] = useState("");
   const [selectedMoviecode, setselectedMoviecode] = useState("");
   const [commentsData, setCommentsData] = useState([]);
 
   useEffect(() => {
-    const fetchDailyBoxoffice = async () => {
+    const fetchCommentDetails = async () => {
       try {
-        const movieResponse = await axios
-          .get(`/home`)
-          .then((response) => response.data); // 코드로부터 영화 정보 가져오기
-        console.log("Test>", movieResponse);
-        setMoviesData(movieResponse); // 받아온 데이터를 상태에 저장
+        const [
+          domesticMoviesResponse,
+          foreignMoviesResponse,
+          animationListResponse,
+        ] = await Promise.all([
+          axios.get(`/home`).then((response) => response.data.domesticmovies),
+          axios.get(`/home`).then((response) => response.data.foreignmovies),
+          axios.get(`/home`).then((response) => response.data.animationList),
+        ]);
 
-        const commentResponse = await axios
-          .get(`/review/list/1`)
-          .then((response) => response.data.viewList);
-        const movieCodes = commentResponse.map((comment) => comment.movie_code); // 영화 코드들을 추출
-        console.log("mvcode", movieCodes);
-        setselectedMoviecode(movieCodes);
-        setCommentsData(commentResponse);
+        const domesticMoviesData = domesticMoviesResponse;
+        const foreignMoviesData = foreignMoviesResponse;
+        const animationListData = animationListResponse;
+        setDomesticMoviesData(domesticMoviesData);
+        setForeignMoviesData(foreignMoviesData);
+        setAnimationListData(animationListData);
+
+        const combinedMoviesData = [
+          ...domesticMoviesData,
+          ...foreignMoviesData,
+          ...animationListData,
+        ];
+        setAllMoviesData(combinedMoviesData);
       } catch (error) {
         console.error("Error fetching movie data:", error);
       }
     };
 
-    fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
+    fetchCommentDetails(); // 영화 정보를 가져오는 함수 호출
   }, []);
 
   const [popupOpen, setPopupOpen] = useState(false);

@@ -202,7 +202,7 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>플레이그라운드</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/playground/comments">
+                <ColumnLink to="/playground/comments/1">
                   지금 뜨는 코멘트
                 </ColumnLink>
                 <ColumnLink>공지사항</ColumnLink>

@@ -1,3 +1,4 @@
+import "./App.css";
 import { Outlet, Route, Routes } from "react-router-dom";
 import Headers from "./components/Headers";
 import Footers from "./components/Footers";
