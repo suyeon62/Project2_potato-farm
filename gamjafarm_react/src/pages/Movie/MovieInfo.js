@@ -190,7 +190,12 @@ const MovieInfo = () => {
                   </m.UserReviewContentsTitleContainer>
 
                   <m.UserReviewContents>
-                    <m.UserReviewContentsMain to="/playground/comments/1">
+                    {/* <m.UserReviewContentsMain
+                      to={`/playground/comments/detail/${view.idx}`}
+                    > */}
+                    <m.UserReviewContentsMain
+                      to={`/playground/comments/detail/15`}
+                    >
                       userReview
                       zazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
                       zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
