@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import commentSlice from "./createSlice/comment_createSlice";
+import reviewSlice from "./createSlice/review_createSlice";
 
 const store = configureStore({
   reducer: {
-    comment: commentSlice.reducer,
+    review: reviewSlice.reducer,
   },
 });
 

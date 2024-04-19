@@ -13,23 +13,23 @@ export const MainPageContainer = styled.div`
   width: 1320px;
 `;
 
-export const Comments = styled.div`
+export const Review = styled.div`
   margin-bottom: 42px;
 `;
 
-export const CommentHeader = styled.div`
+export const ReviewHeader = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 `;
 
-export const CommentHeaderName = styled.div`
+export const ReviewHeaderName = styled.div`
   font-size: 22px;
   font-weight: 700;
   padding: 12px 0 14px;
 `;
 
-export const CommentLink = styled(Link)`
+export const ReviewLink = styled(Link)`
   text-decoration: none;
   color: rgb(116, 116, 123);
   font-size: 15px;
@@ -71,7 +71,7 @@ export const BoxContents = styled.div`
   padding: 11px;
 `;
 
-export const CommentBox = styled(Link)`
+export const ReviewBox = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
@@ -114,7 +114,7 @@ export const MoviePoster = styled.img`
   margin-right: 8px;
 `;
 
-export const MovieComment = styled.div``;
+export const MovieReview = styled.div``;
 
 export const MovieName = styled.div`
   color: #ffffff;
@@ -123,7 +123,7 @@ export const MovieName = styled.div`
   margin-bottom: 4px;
 `;
 
-export const UserComment = styled.div`
+export const UserReview = styled.div`
   color: #ededed;
   font-weight: 400;
   font-size: 15px;
@@ -156,19 +156,19 @@ export const LikeCnt = styled.div`
   font-size: 14px;
 `;
 
-export const UserCommentComment = styled.div`
+export const UserReviewComment = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
   color: #ededed;
 `;
 
-export const UserCommentCommentImg = styled.img`
+export const UserReviewCommentImg = styled.img`
   width: 16px;
   margin-right: 4px;
 `;
 
-export const UserCommentCommentCnt = styled.div`
+export const UserReviewCommentCnt = styled.div`
   font-size: 14px;
 `;
 
@@ -207,7 +207,6 @@ export const LeftBtn = styled.div`
   align-items: center;
   width: 68px;
   height: 24px;
-  background-image: url("gradientRight.svg");
   cursor: pointer;
   margin-left: -32px;
 `;
@@ -237,7 +236,6 @@ export const RightBtn = styled.div`
   align-items: center;
   width: 68px;
   height: 24px;
-  background-image: url("gradientRight.svg");
   cursor: pointer;
   margin-right: -32px;
 `;

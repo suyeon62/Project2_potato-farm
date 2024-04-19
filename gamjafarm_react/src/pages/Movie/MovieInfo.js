@@ -9,10 +9,12 @@ import arrowright from "../../images/arrow-right.png";
 import { scrollLeft, scrollRight } from "../../Hook/scrollFunctions";
 import * as m from "../../Styles/Movie/MovieInfoStyle";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const MovieInfo = () => {
   const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
-  //const [code, setCode] = useState("");
+
+  const dispatch = useDispatch();
 
   const { code } = useParams();
   console.log("code>>>>", code);
@@ -20,7 +22,7 @@ const MovieInfo = () => {
   useEffect(() => {
     const fetchMoviesData = async () => {
       try {
-        const response = await axios.get(`/movie/${code}`); // 코드로부터 영화 정보 가져오기
+        const response = await axios.get(`/home/movie/detail/${code}`); // 코드로부터 영화 정보 가져오기
         setMoviesData(response.data); // 받아온 데이터를 상태에 저장
       } catch (error) {
         console.error("Error fetching movie data:", error);

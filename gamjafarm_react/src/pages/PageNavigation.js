@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const PageNavigation = ({ getViewList }) => {
   //store에 저장된 값을 사용할 때 useSelector
   const pageInfo = useSelector((state) =>
-    state.comment.pageInfo ? state.comment.pageInfo : { currentPage: 1 }
+    state.review.pageInfo ? state.review.pageInfo : { currentPage: 1 }
   );
 
   const pageNumbers = [];

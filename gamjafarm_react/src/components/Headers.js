@@ -178,14 +178,14 @@ const Headers = () => {
     <>
       <HeadersContainers>
         <Navbar>
-          <LogoLink to="">
+          <LogoLink to={``}>
             <Logo src={logo} alt="로고"></Logo>
           </LogoLink>
           <Dropdown>
             <MenuBar>
               <Dropbtn>영화</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/${genre}">드라마</ColumnLink>
+                <ColumnLink to={`/genre`}>드라마</ColumnLink>
                 <ColumnLink>다큐멘터리</ColumnLink>
                 <ColumnLink>멜로/로맨스</ColumnLink>
                 <ColumnLink>공연</ColumnLink>
@@ -211,16 +211,16 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>박스오피스</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/boxoffice">일간</ColumnLink>
-                <ColumnLink to="/boxoffice/monthly">주간</ColumnLink>
+                <ColumnLink to={`/boxoffice`}>일간</ColumnLink>
+                <ColumnLink to={`/boxoffice/monthly`}>주간</ColumnLink>
               </DropdownBox>
             </MenuBar>
 
             <MenuBar>
               <Dropbtn>플레이그라운드</Dropbtn>
               <DropdownBox>
-                <ColumnLink to="/playground/comments/1">
-                  지금 뜨는 코멘트
+                <ColumnLink to={`/playground/review/1`}>
+                  지금 뜨는 리뷰
                 </ColumnLink>
                 <ColumnLink>공지사항</ColumnLink>
                 <ColumnLink>이벤트</ColumnLink>

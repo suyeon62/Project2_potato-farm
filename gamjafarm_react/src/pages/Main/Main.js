@@ -15,55 +15,32 @@ const Main = () => {
   const foreignMovieListRef = useRef(null);
   const aniListRef = useRef(null);
   const [allMoviesData, setAllMoviesData] = useState([]);
+  const [combinedMoviesData, setCombinedMoviesData] = useState([]);
   const [domesticMoviesData, setDomesticMoviesData] = useState([]);
   const [foreignMoviesData, setForeignMoviesData] = useState([]);
   const [animationListData, setAnimationListData] = useState([]);
   const [dailyboxofficeData, setDailyboxofficeData] = useState([]);
   const [selectedcode, setSelectedCode] = useState("");
 
-  const [commentsData, setCommentsData] = useState([]);
+  const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {
     const fetchDailyBoxoffice = async () => {
       try {
-        const [
-          dailyboxofficeResponse,
-          domesticMoviesResponse,
-          foreignMoviesResponse,
-          animationListResponse,
-        ] = await Promise.all([
-          axios.get(`/home`).then((response) => response.data.dailyboxoffice),
-          axios.get(`/home`).then((response) => response.data.domesticmovies),
-          axios.get(`/home`).then((response) => response.data.foreignmovies),
-          axios.get(`/home`).then((response) => response.data.animationList),
-        ]);
+        const mainResponse = await axios.get("/home");
+        const { dailyboxoffice, domesticmovies, foreignmovies, animationList } =
+          mainResponse.data;
+        setDailyboxofficeData(dailyboxoffice);
+        setDomesticMoviesData(domesticmovies);
+        setForeignMoviesData(foreignmovies);
+        setAnimationListData(animationList);
 
-        const dailyboxofficeData = dailyboxofficeResponse;
-        const domesticMoviesData = domesticMoviesResponse;
-        const foreignMoviesData = foreignMoviesResponse;
-        const animationListData = animationListResponse;
-        setDailyboxofficeData(dailyboxofficeData);
-        setDomesticMoviesData(domesticMoviesData);
-        setForeignMoviesData(foreignMoviesData);
-        setAnimationListData(animationListData);
-
-        const combinedMoviesData = [
-          ...dailyboxofficeData,
-          ...domesticMoviesData,
-          ...foreignMoviesData,
-          ...animationListData,
-        ];
-        setAllMoviesData(combinedMoviesData);
+        //리뷰
+        const reviewResponse = await axios.get(`/review/list/1`);
+        setReviewData(reviewResponse.data.viewList);
 
         const codes = combinedMoviesData.map((movie) => movie.code);
         setSelectedCode(codes);
-
-        // const codes = combinedMoviesData.map((movie) => movie.code);
-        // setSelectedCode(codes);
-
-        //코멘트
-        const commentResponse = await axios.get(`/review/list/1`);
-        setCommentsData(commentResponse.data.viewList);
       } catch (error) {
         console.error("Error fetching movie data:", error);
       }
@@ -73,7 +50,7 @@ const Main = () => {
   }, []);
 
   const getMovieInfo = (commentMovieCode) => {
-    const matchedMovie = allMoviesData.find(
+    const matchedMovie = combinedMoviesData.find(
       (movie) => movie.code === commentMovieCode
     );
     return matchedMovie
@@ -85,68 +62,60 @@ const Main = () => {
     <>
       <m.MainPage>
         <m.MainPageContainer>
-          <m.Comments>
-            <m.CommentHeader>
-              <m.CommentHeaderName>지금 뜨는 코멘트</m.CommentHeaderName>
-              <m.CommentLink to="/playground/comments/1">
+          <m.Review>
+            <m.ReviewHeader>
+              <m.ReviewHeaderName>지금 뜨는 리뷰</m.ReviewHeaderName>
+              <m.ReviewLink to="/playground/review/1">
                 더보기 {">"}
-              </m.CommentLink>
-            </m.CommentHeader>
+              </m.ReviewLink>
+            </m.ReviewHeader>
 
             <m.BoxContainer>
               <m.BoxList>
-                {commentsData.map((comment, index) => {
-                  const movieInfo = getMovieInfo(comment.movie_code);
-                  return (
-                    <m.Box key={index}>
-                      <m.BoxContents>
-                        <m.CommentBox to="/playground/comments/1">
-                          <m.BoxTitle>
-                            <m.BoxTitleContainer>
-                              <m.UserImage src={userImage} alt="유저 이미지" />
-                              <m.UserName>{comment.user_id}</m.UserName>
-                            </m.BoxTitleContainer>
-                            <m.MovieRate>{comment.userRate}</m.MovieRate>
-                          </m.BoxTitle>
+                {reviewData.map((review) => (
+                  <m.Box key={review.idx}>
+                    <m.BoxContents>
+                      <m.ReviewBox to="/playground/review/1">
+                        <m.BoxTitle>
+                          <m.BoxTitleContainer>
+                            <m.UserImage src={userImage} alt="유저 이미지" />
+                            <m.UserName>{review.user_id}</m.UserName>
+                          </m.BoxTitleContainer>
+                          <m.MovieRate>{review.userRate}</m.MovieRate>
+                        </m.BoxTitle>
 
-                          <m.BoxBodyContainer>
-                            <m.MoviePoster
-                              src={movieInfo ? movieInfo.poster : ""}
-                              alt="포스터"
+                        <m.BoxBodyContainer>
+                          <m.MoviePoster src={review.poster} alt="포스터" />
+                          <m.MovieReview>
+                            <m.MovieName>{review.name_kor}</m.MovieName>
+                            <m.UserReview>{review.review}</m.UserReview>
+                          </m.MovieReview>
+                        </m.BoxBodyContainer>
+
+                        <m.DividingLine />
+                        <m.ActiveArea>
+                          <m.Like>
+                            <m.LikeImg src={likeImage} alt="좋아요 이미지" />
+                            <m.LikeCnt>{review.like_Cnt}</m.LikeCnt>
+                          </m.Like>
+
+                          <m.UserReviewComment>
+                            <m.UserReviewCommentImg
+                              src={commentImage}
+                              alt="댓글 이미지"
                             />
-                            <m.MovieComment>
-                              <m.MovieName>
-                                {movieInfo ? movieInfo.name_kor : ""}
-                              </m.MovieName>
-                              <m.UserComment>{comment.review}</m.UserComment>
-                            </m.MovieComment>
-                          </m.BoxBodyContainer>
-
-                          <m.DividingLine />
-                          <m.ActiveArea>
-                            <m.Like>
-                              <m.LikeImg src={likeImage} alt="좋아요 이미지" />
-                              <m.LikeCnt>{comment.like_Cnt}</m.LikeCnt>
-                            </m.Like>
-
-                            <m.UserCommentComment>
-                              <m.UserCommentCommentImg
-                                src={commentImage}
-                                alt="댓글 이미지"
-                              />
-                              <m.UserCommentCommentCnt>
-                                {comment.userCommentCommentCnt}
-                              </m.UserCommentCommentCnt>
-                            </m.UserCommentComment>
-                          </m.ActiveArea>
-                        </m.CommentBox>
-                      </m.BoxContents>
-                    </m.Box>
-                  );
-                })}
+                            <m.UserReviewCommentCnt>
+                              {review.userReviewCommentCnt}
+                            </m.UserReviewCommentCnt>
+                          </m.UserReviewComment>
+                        </m.ActiveArea>
+                      </m.ReviewBox>
+                    </m.BoxContents>
+                  </m.Box>
+                ))}
               </m.BoxList>
             </m.BoxContainer>
-          </m.Comments>
+          </m.Review>
 
           {/* 박스오피스 */}
           <m.Boxoffice>

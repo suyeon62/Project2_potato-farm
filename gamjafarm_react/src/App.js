@@ -1,17 +1,25 @@
+import { Route, Routes, Outlet } from "react-router-dom";
 import "./App.css";
-import { Outlet, Route, Routes } from "react-router-dom";
+import Login from "./login_pages/Login";
+import Policy from "./login_pages/Policy";
+import Signup from "./login_pages/Signup";
+import Mypage from "./layout/Mypage";
+import Calendar from "./mypage/Calendar";
+import Setting from "./mypage/Setting";
+import EditInfo from "./mypage/EditInfo";
+import Changepw from "./mypage/Changepw";
+import Wish from "./mypage/Wish";
+import Rating from "./mypage/Rating";
+import Review from "./mypage/Review";
+import Logout from "./login_pages/Logout";
 import Headers from "./components/Headers";
 import Footers from "./components/Footers";
+import UserRemove from "./mypage/UserRemove";
+
 import Main from "./pages/Main/Main";
-import MypageLayout from "./components/MypageLayout";
-import MyTickets from "./pages/MyPage/MyTickets";
-import MvWntSee from "./pages/MyPage/MvWntSee";
-import MvISaw from "./pages/MyPage/MvISaw";
-import MyComments from "./pages/MyPage/MyComments";
-import CommentsMain from "./pages/Comments/CommentsMain";
-import CommentDetails from "./pages/Comments/CommentDetails";
+import ReviewMain from "./pages/Review/ReviewMain";
+import ReviewDetails from "./pages/Review/ReviewDetails";
 import MovieInfo from "./pages/Movie/MovieInfo";
-import MypageMain from "./pages/MyPage/MypageMain";
 import MovieInfoComments from "./pages/Movie/MovieInfoComments";
 import DailyBoxoffice from "./pages/Boxoffice/DailyBoxoffice";
 import MonthlyBoxoffice from "./pages/Boxoffice/MonthlyBoxoffice";
@@ -19,41 +27,43 @@ import MovieGenre from "./pages/Movie/MovieGenre";
 
 function App() {
   return (
-    <div className="App">
-      <Headers className="headers"></Headers>
-
+    <div>
+      <Headers className="header"></Headers>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="login" element={<Login />} />
+        <Route path="policy" element={<Policy />} />
+        <Route path="signup" element={<Signup />} />
 
-        {/* <Route path="/movie" element={<MovieInfo />} /> */}
-        {/* <Route path="/movie/:genre" element={<MovieInfo />} /> */}
+        <Route path="mypage" element={<Mypage />}>
+          {/* <Route index element={<Mypage />} /> */}
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="wish" element={<Wish />} />
+          <Route path="rating" element={<Rating />} />
+          <Route path="review" element={<Review />} />
+          <Route path="setting" element={<Setting />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="setting/editinfo" element={<EditInfo />} />
+          <Route path="setting/editinfo/changepw" element={<Changepw />} />
+          <Route path="setting/editinfo/userremove" element={<UserRemove />} />
+        </Route>
+
+        <Route path="/" element={<Main />} />
         <Route path="/:genre" element={<MovieGenre />} />
         <Route path="/movie/:code" element={<MovieInfo />} />
         <Route
           path="/movie/:movieCode/comments"
           element={<MovieInfoComments />}
         />
-
         <Route path="/boxoffice" element={<DailyBoxoffice />} />
         <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
-
         <Route
-          path="/playground/comments/:currentPage"
-          element={<CommentsMain />}
+          path="/playground/review/:currentPage"
+          element={<ReviewMain />}
         />
         <Route
-          path="/playground/comments/detail/:idx"
-          element={<CommentDetails />}
+          path="/playground/review/detail/:idx"
+          element={<ReviewDetails />}
         />
-
-        <Route path="/mypage" element={<MypageMain />} />
-        {/* <Route path="/mypage/*" element={<MypageLayout />}>
-          <Route path="mytickets" element={<MyTickets />} />
-          <Route path="mvwntsee" element={<MvWntSee />} />
-          <Route path="mvisaw" element={<MvISaw />} />
-          <Route path="mycomments" element={<MyComments />} />
-        </Route> */}
-        {/* <Route path="/mypage/mvwntsee" element={<MvWntSee />} /> */}
       </Routes>
       <Outlet />
       <Footers className="footer"></Footers>
