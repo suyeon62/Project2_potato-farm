@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import logo from "../images/logo.png";
 import searchIcon from "../images/searchIcon.png";
 import userImage from "../images/userImage.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const HeadersContainers = styled.div`
   background-color: #000000;
@@ -174,6 +175,29 @@ const Headers = () => {
     setIsLoggedIn(false);
   };
 
+  const genres = [
+    "드라마",
+    "다큐멘터리",
+    "멜로, 로맨스",
+    "공연",
+    "애니메이션",
+    "판타지",
+    "범죄",
+    "액션",
+    "공포(호러)",
+    "코미디",
+    "스릴러",
+    "어드벤처",
+    "미스터리",
+    "가족",
+    "전쟁",
+    "사극",
+    "SF",
+    "뮤지컬",
+    "서부극(웨스턴)",
+    "기타",
+  ];
+
   return (
     <>
       <HeadersContainers>
@@ -185,26 +209,12 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>영화</Dropbtn>
               <DropdownBox>
-                <ColumnLink to={`/genre`}>드라마</ColumnLink>
-                <ColumnLink>다큐멘터리</ColumnLink>
-                <ColumnLink>멜로/로맨스</ColumnLink>
-                <ColumnLink>공연</ColumnLink>
-                <ColumnLink>애니메이션</ColumnLink>
-                <ColumnLink>판타지</ColumnLink>
-                <ColumnLink>범죄</ColumnLink>
-                <ColumnLink>액션</ColumnLink>
-                <ColumnLink>공포(호러)</ColumnLink>
-                <ColumnLink>코미디</ColumnLink>
-                <ColumnLink>스릴러</ColumnLink>
-                <ColumnLink>어드벤처</ColumnLink>
-                <ColumnLink>미스터리</ColumnLink>
-                <ColumnLink>가족</ColumnLink>
-                <ColumnLink>전쟁</ColumnLink>
-                <ColumnLink>사극</ColumnLink>
-                <ColumnLink>SF</ColumnLink>
-                <ColumnLink>뮤지컬</ColumnLink>
-                <ColumnLink>서부극(웨스턴)</ColumnLink>
-                <ColumnLink>기타</ColumnLink>
+                {/* <ColumnLink to={`/genre`}>드라마</ColumnLink> */}
+                {genres.map((genre, index) => (
+                  <ColumnLink key={index} to={`/${genre}/1`}>
+                    {genre}
+                  </ColumnLink>
+                ))}
               </DropdownBox>
             </MenuBar>
 

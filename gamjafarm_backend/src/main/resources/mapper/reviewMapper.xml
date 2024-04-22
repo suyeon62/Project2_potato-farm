@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamja_farm.mapper.ReviewMapper">
+
+	<resultMap id="ReviewResultMap" type="ReviewDTO">
+		<!-- <result property="idx" column = "idx" />
+		<result property="view_Cnt" column = "view_cnt" />		
+		<result property="movie_code" column = "code" />		
+		<result property="review" column = "review" /> -->
+		<result property="regist_at" column = "regist_at" jdbcType="DATE" javaType="java.util.Date" />				
+    <result property="poster" column="poster"/>
+		<result property="name_kor" column="name_kor"/>				
+	</resultMap>
+
+
+	<!-- 페이지 카운트 -->
+	<select id="countpage" resultType="int">
+		SELECT count(*) From user_review
+	</select>
+
+
+	<!-- 전체 리뷰 리스트 가지고 오기 -->
+
+	<select id="viewList" resultMap="ReviewResultMap" parameterType="PageDTO">
+		SELECT m.poster, m.name_kor, u.movie_code, u.user_id, u.idx, u.review
+		FROM user_review u 
+		JOIN movie m ON u.movie_code = m.code
+		ORDER BY u.idx DESC
+		LIMIT #{startRow}, #{blockCount}
+	</select>
+
+
+	<!-- 내가 작성한 리스트 숫자로 반환 -->
+	<select id="countMyReview" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM user_review
+		WHERE user_id=#{user_id}
+	</select>
+
+	<!-- 회원id로 내가 쓴것만 가지고 오기 -->
+	<select id="getMyReview" resultMap="ReviewResultMap" parameterType="PageDTO">
+		SELECT m.poster, m.name_kor,u.movie_code, u.user_id, u.idx, u.review, u.regist_at 
+		FROM user_review u 
+		JOIN movie m ON u.movie_code = m.code
+		WHERE user_id=#{user_id}
+		ORDER BY u.idx DESC
+		LIMIT #{pageDTO.startRow}, #{pageDTO.blockCount}
+	</select>
+
+
+
+	<!--글 작성하기 -->
+	<insert id="saveReview" parameterType="ReviewDTO">
+		INSERT INTO user_review (user_id, movie_code, review)  
+		VALUES(#{user_id}, #{movie_code}, #{review}) 
+	</insert>
+
+	<!-- 조회수 올리기 -->
+	<update id="readcount" parameterType="int">
+		UPDATE user_review
+		SET view_cnt = view_cnt +1
+		WHERE idx = #{idx}
+	</update>
+
+
+	<!-- 리뷰내용 확인 -->
+	<select id="showContent" parameterType="int" resultType="ReviewDTO"> 
+		SELECT * FROM user_review
+		WHERE idx=#{idx}
+	</select>
+
+	<!-- 게시글 수정 -->
+	<update id="updateReview" parameterType="ReviewDTO"> 
+		UPDATE user_review
+		SET review=#{review}
+		WHERE idx=#{idx}
+	</update>
+
+	<!-- 리뷰 삭제-->
+	<delete id="deleteReview" parameterType="int"> 
+		DELETE FROM user_review 
+		WHERE idx=#{idx}
+	</delete>
+
+</mapper>

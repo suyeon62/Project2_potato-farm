@@ -26,9 +26,29 @@ function getReviewDetail(idx) {
 
 //리뷰 write
 function getReviewWrite(formData) {
+  console.log("formData:", formData);
   return async () => {
     await axios
-      .post(`/board/write`, formData)
+      .post(`/review/write`, formData)
+      .then((response) => response.data);
+  };
+}
+
+//리뷰 update
+function getReviewUpdate(idx, formData) {
+  return async () => {
+    await axios
+      .put(`/review/update/${idx}`, formData)
+      .then((response) => response.data);
+    console.log("Ffform", formData);
+  };
+}
+
+//리뷰 delete
+function getReviewDelete(idx) {
+  return async () => {
+    await axios
+      .delete(`/review/delete/${idx}`)
       .then((response) => response.data);
   };
 }
@@ -37,4 +57,6 @@ export const reviewActions = {
   getReviewList,
   getReviewDetail,
   getReviewWrite,
+  getReviewUpdate,
+  getReviewDelete,
 };

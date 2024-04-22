@@ -48,12 +48,9 @@ function App() {
         </Route>
 
         <Route path="/" element={<Main />} />
-        <Route path="/:genre" element={<MovieGenre />} />
+        <Route path="/:genre/:currentPage" element={<MovieGenre />} />
         <Route path="/movie/:code" element={<MovieInfo />} />
-        <Route
-          path="/movie/:movieCode/comments"
-          element={<MovieInfoComments />}
-        />
+        <Route path="/movie/:code/comments" element={<MovieInfoComments />} />
         <Route path="/boxoffice" element={<DailyBoxoffice />} />
         <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
         <Route

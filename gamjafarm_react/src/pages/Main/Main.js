@@ -14,14 +14,13 @@ const Main = () => {
   const domesticMovieListRef = useRef(null);
   const foreignMovieListRef = useRef(null);
   const aniListRef = useRef(null);
-  const [allMoviesData, setAllMoviesData] = useState([]);
-  const [combinedMoviesData, setCombinedMoviesData] = useState([]);
+  // const [allMoviesData, setAllMoviesData] = useState([]);
+  // const [combinedMoviesData, setCombinedMoviesData] = useState([]);
   const [domesticMoviesData, setDomesticMoviesData] = useState([]);
   const [foreignMoviesData, setForeignMoviesData] = useState([]);
   const [animationListData, setAnimationListData] = useState([]);
   const [dailyboxofficeData, setDailyboxofficeData] = useState([]);
-  const [selectedcode, setSelectedCode] = useState("");
-
+  // const [selectedcode, setSelectedCode] = useState("");
   const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {
@@ -39,8 +38,8 @@ const Main = () => {
         const reviewResponse = await axios.get(`/review/list/1`);
         setReviewData(reviewResponse.data.viewList);
 
-        const codes = combinedMoviesData.map((movie) => movie.code);
-        setSelectedCode(codes);
+        // const codes = combinedMoviesData.map((movie) => movie.code);
+        // setSelectedCode(codes);
       } catch (error) {
         console.error("Error fetching movie data:", error);
       }
@@ -49,15 +48,6 @@ const Main = () => {
     fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
   }, []);
 
-  const getMovieInfo = (commentMovieCode) => {
-    const matchedMovie = combinedMoviesData.find(
-      (movie) => movie.code === commentMovieCode
-    );
-    return matchedMovie
-      ? { name_kor: matchedMovie.name_kor, poster: matchedMovie.poster }
-      : null;
-  };
-
   return (
     <>
       <m.MainPage>
@@ -65,7 +55,7 @@ const Main = () => {
           <m.Review>
             <m.ReviewHeader>
               <m.ReviewHeaderName>지금 뜨는 리뷰</m.ReviewHeaderName>
-              <m.ReviewLink to="/playground/review/1">
+              <m.ReviewLink to={`/playground/review/1`}>
                 더보기 {">"}
               </m.ReviewLink>
             </m.ReviewHeader>

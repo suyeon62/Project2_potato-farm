@@ -9,10 +9,10 @@ const ShortcutMenu = styled(Link)`
 const MypageLayout = ({ children }) => {
   return (
     <>
-      <ShortcutMenu to="/mypage/mytickets"></ShortcutMenu>
+      {/* <ShortcutMenu to="/mypage/mytickets"></ShortcutMenu>
       <ShortcutMenu to="/mypage/mvwntsee"></ShortcutMenu>
       <ShortcutMenu to="/mypage/mvisaw"></ShortcutMenu>
-      <ShortcutMenu to="/mypage/mycomments"></ShortcutMenu>
+      <ShortcutMenu to="/mypage/mycomments"></ShortcutMenu> */}
       {/* <ShortcutMenu to="/mypage/">회원정보 수정</ShortcutMenu>
       <ShortcutMenu to="/mypage/">로그아웃</ShortcutMenu> */}
       <Outlet />

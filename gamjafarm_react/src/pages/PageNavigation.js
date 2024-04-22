@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const PageNavigation = ({ getViewList }) => {
+const PageNavigation = ({ getReviewList }) => {
   //store에 저장된 값을 사용할 때 useSelector
   const pageInfo = useSelector((state) =>
     state.review.pageInfo ? state.review.pageInfo : { currentPage: 1 }
@@ -24,7 +24,9 @@ const PageNavigation = ({ getViewList }) => {
         >
           <span
             className="page-link"
-            onClick={() => getViewList(pageInfo.startPage - pageInfo.blockPage)}
+            onClick={() =>
+              getReviewList(pageInfo.startPage - pageInfo.blockPage)
+            }
             style={{
               color: "white",
               backgroundColor: "#333",
@@ -41,7 +43,7 @@ const PageNavigation = ({ getViewList }) => {
             return (
               <li key={pnum}>
                 <span
-                  onClick={() => getViewList(pnum)}
+                  onClick={() => getReviewList(pnum)}
                   className="page-link"
                   style={{
                     zIndex: 1,
@@ -72,7 +74,9 @@ const PageNavigation = ({ getViewList }) => {
         >
           <span
             className="page-link"
-            onClick={() => getViewList(pageInfo.startPage + pageInfo.blockPage)}
+            onClick={() =>
+              getReviewList(pageInfo.startPage + pageInfo.blockPage)
+            }
             style={{
               color: "white",
               backgroundColor: "#333",

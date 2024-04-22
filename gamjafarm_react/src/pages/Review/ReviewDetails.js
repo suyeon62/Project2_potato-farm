@@ -6,41 +6,67 @@ import commentImage from "../../images/commentImage.png";
 import graystar from "../../images/graystar.png";
 import commentIcon from "../../images/commentIcon.png";
 import * as m from "../../Styles/Review/ReviewDetailsStyle";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reviewActions } from "../../toolkit/actions/review_action";
+import ReviewCommentPopup from "./ReviewCommentPopup";
+import ReviewUpdatePopup from "./ReviewUpdatePopup";
 
 const ReviewDetails = () => {
+  const { code } = useParams();
   const { idx } = useParams();
   const dispatch = useDispatch();
+  const navigator = useNavigate();
+  //   console.log("code>>>>", code);
 
-  // const getReViewDetail = (idx) => {
-  //   dispatch(reviewActions.getReViewDetail(idx));
-  // };
-
+  //detail
   useEffect(() => {
     dispatch(reviewActions.getReviewDetail(idx));
   }, []);
 
   const reviewDetail = useSelector((state) => state.review.reviewDetail);
+  console.log("detail", reviewDetail);
 
-  const [popupOpen, setPopupOpen] = useState(false);
+  //update
+  const [inputs, setInputs] = useState({
+    content: "",
+  });
+  const { content } = inputs;
 
-  // 팝업 열기 함수
-  const openPopup = () => {
-    setPopupOpen(true);
+  useEffect(() => {
+    setInputs((prev) => {
+      return { ...prev, ...reviewDetail };
+    });
+  }, []);
+
+  //delete
+  const handelDelete = async (e) => {
+    e.preventDefault();
+    dispatch(reviewActions.getReviewDelete(idx));
+    navigator(`/playground/review/1`);
   };
 
-  // 팝업 닫기 함수
-  const closePopup = () => {
-    setPopupOpen(false);
+  const [updatePopupOpen, setUpdatePopupOpen] = useState(false);
+  const [commentPopupOpen, setCommentPopupOpen] = useState(false);
+
+  // 리뷰 수정 팝업 열기 함수
+  const openUpdatePopup = () => {
+    setUpdatePopupOpen(true);
   };
 
-  const [commentText, setCommentText] = useState(""); // 입력된 텍스트를 추적하는 상태
+  // 리뷰 수정 팝업 닫기 함수
+  const closeUpdatePopup = () => {
+    setUpdatePopupOpen(false);
+  };
 
-  // 텍스트 입력 시 호출되는 함수
-  const handleTextChange = (event) => {
-    setCommentText(event.target.value); // 입력된 텍스트를 상태에 업데이트
+  // 댓글 팝업 열기 함수
+  const openCommentPopup = () => {
+    setCommentPopupOpen(true);
+  };
+
+  // 댓글 팝업 닫기 함수
+  const closeCommentPopup = () => {
+    setCommentPopupOpen(false);
   };
 
   return (
@@ -60,12 +86,25 @@ const ReviewDetails = () => {
               </m.MovieRate>
             </m.BoxTitle>
 
-            <m.PosterLink to={`/movie/${reviewDetail.movie_code}`}>
-              <m.Poster to src={reviewDetail.poster} alt="poster"></m.Poster>
-            </m.PosterLink>
+            <m.RightsideContents>
+              <m.UpdateBtn onClick={openUpdatePopup}>리뷰 수정</m.UpdateBtn>
+              <m.DeleteBtn onClick={handelDelete}>리뷰 삭제</m.DeleteBtn>
+              <m.PosterLink to={`/movie/${reviewDetail.movie_code}`}>
+                <m.Poster to src={reviewDetail.poster} alt="poster"></m.Poster>
+              </m.PosterLink>
+            </m.RightsideContents>
           </m.BoxTitleContainer>
 
-          <m.UserComment>{reviewDetail.review}</m.UserComment>
+          <m.UserComment>
+            {updatePopupOpen ? (
+              <ReviewUpdatePopup
+                popupOpen={updatePopupOpen}
+                closePopup={closeUpdatePopup}
+              />
+            ) : (
+              reviewDetail.review
+            )}
+          </m.UserComment>
 
           <m.Cnt>
             <m.LikeCnt>
@@ -90,7 +129,7 @@ const ReviewDetails = () => {
                 src={commentImage}
                 alt="댓글 이미지"
               ></m.UserCommentCommentImg>
-              <m.UserCommentCommentWord onClick={openPopup}>
+              <m.UserCommentCommentWord onClick={openCommentPopup}>
                 댓글
               </m.UserCommentCommentWord>
             </m.UserCommentComment>
@@ -147,27 +186,11 @@ const ReviewDetails = () => {
         </m.CommentBox>
       </m.Comment>
 
-      {popupOpen && (
-        <m.Popup>
-          {/* 팝업 닫기 버튼 */}
-          <m.CloseButton onClick={closePopup}>X 닫기</m.CloseButton>
-          {/* 팝업 내용 */}
-          <m.CommentMenu>댓글</m.CommentMenu>
-          <m.TextContainer>
-            <m.Textarea
-              placeholder="이 movieName에 대한 생각을 자유롭게 표현해주세요."
-              onChange={handleTextChange}
-            ></m.Textarea>
-          </m.TextContainer>
-          <m.WrapSave>
-            <m.SaveButton
-              style={{ opacity: commentText ? 1 : 0.5 }}
-              onClick={closePopup}
-            >
-              저장
-            </m.SaveButton>
-          </m.WrapSave>
-        </m.Popup>
+      {commentPopupOpen && (
+        <ReviewCommentPopup
+          popupOpen={commentPopupOpen}
+          closePopup={closeCommentPopup}
+        />
       )}
     </>
   );
